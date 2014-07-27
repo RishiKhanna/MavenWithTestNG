@@ -37,12 +37,11 @@ public class ChromeWebDriver extends IDriver {
 
 	public WebDriver getremotedriver(Grid grid, Capabilities capabilities) {
 		WebDriver driver = null;
-		log.info("Intantiating/Launching the Internet Explorer Browser on Remote Node");
+		log.info("Intantiating/Launching the Chrome Browser on Remote Node");
 		try {
 			driver = new RemoteWebDriver(new URL("http://" + grid.gridAddress
 					+ ":" + grid.portNumber + "/wd/hub"), capabilities);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return driver;

@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import org.testng.pages.SignInPage;
 import org.testng.propertymgr.PropertyManager;
 
-public class OrderTest extends TestBase {
+public class TestOrders extends TestBase {
 
 	private SignInPage signInPage;
 	private final static Properties signinProperties = new PropertyManager()
@@ -22,22 +22,20 @@ public class OrderTest extends TestBase {
 	}
 
 	@Test
-	public void applicationLoginIn() throws InterruptedException {
-		Thread.sleep(20000);
-		signInPage.enterUserName(signinProperties.getProperty("userName"));
+	public void applicationPasswordIn() throws InterruptedException {
+		signInPage.enterPassword(signinProperties.getProperty("password"));
+		signInPage.clickLogin();
 	}
 
 	@Test
-	public void applicationLoginIn1() throws InterruptedException {
-		Thread.sleep(10000);
-		signInPage.enterUserName(signinProperties.getProperty("userName"));
+	public void applicationPasswordIn1() throws InterruptedException {
+		signInPage.enterPassword(signinProperties.getProperty("password"));
+		signInPage.clickLogin();
 	}
 
 	@Test
-	public void applicationLoginIn2() throws InterruptedException {
-		signInPage.enterUserName(signinProperties.getProperty("userName"));
-		//Thread.sleep(45000);
-		//signInPage.enterPassword(signinProperties.getProperty("password"));
-		//signInPage.clickLogin();
+	public void applicationPasswordIn2() throws InterruptedException {
+		signInPage.enterPassword(signinProperties.getProperty("password"));
+		signInPage.clickLogin();
 	}
 }

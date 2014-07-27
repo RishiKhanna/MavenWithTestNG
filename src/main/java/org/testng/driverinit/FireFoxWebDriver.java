@@ -23,7 +23,7 @@ public class FireFoxWebDriver extends IDriver {
 
 	public WebDriver getdriver(Capabilities capabilities) {
 		setPath();
-		log.info("Intantiating/Launching the Chrome Browser");
+		log.info("Intantiating/Launching the Firefox Browser");
 		return new FirefoxDriver(capabilities);
 	}
 
@@ -38,7 +38,7 @@ public class FireFoxWebDriver extends IDriver {
 
 	public WebDriver getremotedriver(Grid grid, Capabilities capabilities) {
 		WebDriver driver = null;
-		log.info("Intantiating/Launching the Internet Explorer Browser on Remote node");
+		log.info("Intantiating/Launching the Firefox Browser on Remote node");
 		try {
 			driver = new RemoteWebDriver(new URL("http://" + grid.gridAddress
 					+ ":" + grid.portNumber + "/wd/hub"), capabilities);

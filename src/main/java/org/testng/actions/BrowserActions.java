@@ -14,8 +14,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.ITestContext;
 import org.testng.driverinit.Browser;
-import org.testng.driverinit.DriverInitialization;
 import org.testng.driverinit.Grid;
 import org.testng.propertymgr.PropertyManager;
 import org.testng.utilities.Logg;
@@ -23,13 +23,21 @@ import org.testng.waits.WebDriverWaits;
 
 public class BrowserActions {
 
-	private static WebDriver driver;
-	private final Verifications verify = new Verifications();
-	private final Logger log = Logg.createLogger();
-	private final Properties applicationProperty = new PropertyManager()
-			.loadPropertyFile("/src/main/resources/org/test/properties/application.properties");
-	private final WebDriverWaits wait = new WebDriverWaits();
+	private WebDriver driver;
+	private final Verifications verify;
+	private final Logger log;
+	private final Properties applicationProperty;
+	private final WebDriverWaits wait;
 	private static Cookie cookie;
+
+	public BrowserActions(WebDriver driver) {
+		this.driver = driver;
+		verify = new Verifications();
+		log = Logg.createLogger();
+		wait = new WebDriverWaits();
+		applicationProperty = new PropertyManager()
+				.loadPropertyFile("/src/main/resources/org/test/properties/application.properties");
+	}
 
 	public void storeDataInCookie(String key, String value) {
 		cookie = new Cookie(key, value);
@@ -48,7 +56,6 @@ public class BrowserActions {
 
 	public void openURLonLocalBrowser(Browser browser) {
 		try {
-			driver = DriverInitialization.getDriver(browser);
 			log.info("Navigating to Application URL on Local Browser:"
 					+ applicationProperty.getProperty("applicationURL"));
 			driver.get(applicationProperty.getProperty("applicationURL"));
@@ -58,13 +65,11 @@ public class BrowserActions {
 			log.fatal("Error in navigating the URL on the Local Browser::"
 					+ applicationProperty.getProperty("applicationURL"));
 			ex.printStackTrace();
-			closeBrowser();
 		}
 	}
 
 	public void openURLonRemoteBrowser(Grid grid, Browser browser) {
 		try {
-			driver = DriverInitialization.getRemoteDriver(browser, grid);
 			log.info("Navigating to Application URL on Remote Browser:"
 					+ applicationProperty.getProperty("applicationURL"));
 			driver.get(applicationProperty.getProperty("applicationURL"));
@@ -74,13 +79,12 @@ public class BrowserActions {
 			log.fatal("Error in navigating to URL on the Remote Browser:"
 					+ applicationProperty.getProperty("applicationURL"));
 			ex.printStackTrace();
-			closeBrowser();
 		}
 	}
 
-	public void closeBrowser() {
+	public void closeBrowser(ITestContext context) {
 		log.info("Closing the browser");
-		DriverInitialization.resetDriver();
+		context.getAttribute(context.getCurrentXmlTest().getName());
 		log.info("Sucessfully closed the browser" + "\n");
 	}
 
