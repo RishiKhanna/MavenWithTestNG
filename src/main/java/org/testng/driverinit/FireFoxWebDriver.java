@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.utilities.Logg;
@@ -24,7 +24,7 @@ public class FireFoxWebDriver extends IDriver {
 	public WebDriver getdriver(Capabilities capabilities) {
 		setPath();
 		log.info("Intantiating/Launching the Chrome Browser");
-		return new ChromeDriver(capabilities);
+		return new FirefoxDriver(capabilities);
 	}
 
 	public Capabilities getCapabilities(Browser browser) {

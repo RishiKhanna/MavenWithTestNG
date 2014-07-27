@@ -36,7 +36,8 @@ public class Logg {
 						+ FileName);
 				LogManager.resetConfiguration();
 				PropertyConfigurator.configure(props);
-				System.out.println("Preoperty log4j.appender.File.File = logs/"+ FileName);
+				System.out.println("Preoperty log4j.appender.File.File = logs/"
+						+ FileName);
 			}
 		} catch (IOException ex) {
 			System.out.print("IO Exception in static method of Logger Class. "

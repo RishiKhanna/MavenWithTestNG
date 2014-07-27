@@ -11,16 +11,17 @@ import org.apache.log4j.Logger;
 
 public class Reporter {
 	private File file = null;
-	private final Logger log=Logg.createLogger();
-	
+	private final Logger log = Logg.createLogger();
+
 	public Reporter() {
-		String datetimeString = new SimpleDateFormat("MM-dd-yyyy_hh.mm.ss").format(new Date());
+		String datetimeString = new SimpleDateFormat("MM-dd-yyyy_hh.mm.ss")
+				.format(new Date());
 		String fileName = ("report" + "-" + datetimeString + ".html");
-		log.info("Reporting file name:"+fileName);
+		log.info("Reporting file name:" + fileName);
 		file = new File("./reports/" + fileName);
 	}
 
-	public void generateReport(){
+	public void generateReport() {
 		FileWriter fstream = null;
 		try {
 			log.info("Generating static part of the report");
@@ -55,13 +56,13 @@ public class Reporter {
 			out.close();
 			log.info("Generated static part of the report");
 		} catch (IOException e) {
-			//fstream.close();
+			// fstream.close();
 		}
 	}
-	
+
 	public void sendStatusToReport(int SR_NO, String Module, String TC_ID,
-			String TestName, String Status, String Comments){
-			FileWriter fstream = null;
+			String TestName, String Status, String Comments) {
+		FileWriter fstream = null;
 		try {
 			fstream = new FileWriter(file, true);
 			BufferedWriter out = new BufferedWriter(fstream);
@@ -76,7 +77,7 @@ public class Reporter {
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			//fstream.close();
+			// fstream.close();
 		}
 	}
 }

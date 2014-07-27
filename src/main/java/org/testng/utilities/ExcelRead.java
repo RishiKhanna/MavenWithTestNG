@@ -17,7 +17,8 @@ public class ExcelRead {
 	public static String[][] readTestData(String sheetName) {
 
 		try {
-			File excelFile = new File(excelRelativePath.getProperty("excelPath"));
+			File excelFile = new File(
+					excelRelativePath.getProperty("excelPath"));
 			Workbook workbook = Workbook.getWorkbook(excelFile);
 			Sheet sheet = workbook.getSheet(sheetName);
 			int col = sheet.getColumns();
@@ -31,7 +32,8 @@ public class ExcelRead {
 					// Returns the cell specified at this row and at this
 					// column.
 					storage[i][j] = sheet.getCell(j, i).getContents();
-					log.info("[" + i + "]row [" + j + "]column value = " + storage[i][j]);
+					log.info("[" + i + "]row [" + j + "]column value = "
+							+ storage[i][j]);
 				}
 			}
 
