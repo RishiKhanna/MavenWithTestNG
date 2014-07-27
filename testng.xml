@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestAll">
+
+	<test name="ValidateCustomers Test" preserve-order="true">
+		<classes>
+			<class name="org.testng.validateorders.OrderTest">
+				<methods>
+					<include name="applicationLoginIn" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>
