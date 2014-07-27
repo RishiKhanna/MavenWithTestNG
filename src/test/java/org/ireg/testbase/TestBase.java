@@ -9,6 +9,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.driverinit.Browser;
+import org.testng.driverinit.Grid;
 import org.testng.pages.SignInPage;
 import org.testng.propertymgr.PropertyManager;
 import org.testng.utilities.ExcelRead;
@@ -18,15 +19,15 @@ import org.testng.utilities.Utilities;
 
 public class TestBase {
 	private final Properties frameworkProperty = new PropertyManager()
-	.loadPropertyFile("/src/main/resources/org/framework/properties/framework.properties");
+			.loadPropertyFile("/src/main/resources/org/framework/properties/framework.properties");
 	protected static Reporter report = null;
 	protected final Logger log = Logg.createLogger();
 	private final BrowserActions action = new BrowserActions();
 	protected final static Utilities util = new Utilities();
 	protected final static SignInPage signInPage = new SignInPage();
-	//protected static HomePage homePage;
+	// protected static HomePage homePage;
 	protected static String[][] strorage = null;
-	
+
 	@DataProvider(name = "ReadExcel")
 	public String[][] readDataFromExcel(Method m) {
 		log.info("Data Provider: Read Excel");
@@ -50,6 +51,12 @@ public class TestBase {
 		report = new Reporter();
 		report.generateReport();
 		Browser browser = new Browser();
-		action.openURL(frameworkProperty.getProperty("executionType"),browser);
+		if ("local".equals(frameworkProperty.getProperty("executionType")))
+			action.openURLonLocalBrowser(browser);
+		else {
+			Grid grid = new Grid();
+			action.openURLonRemoteBrowser(grid, browser);
+		}
+
 	}
 }

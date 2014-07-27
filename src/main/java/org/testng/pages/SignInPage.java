@@ -2,7 +2,6 @@ package org.testng.pages;
 
 import static org.testng.pages.locators.SignInPageLocators.*;
 
-
 public class SignInPage extends PageBase {
 
 	public void enterUserName(String userName) {

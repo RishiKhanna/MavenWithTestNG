@@ -11,44 +11,52 @@ public class DriverInitialization {
 
 	private static WebDriver driver = null;
 	private static Logger log = Logg.createLogger();
-	private static String gridAddress;
-	
+
 	private DriverInitialization() {
 	}
 
-	public static WebDriver getDriver(Browser browser, String executionType) {
+	public static WebDriver getDriver(Browser browser) {
 
 		if (driver == null) {
 			if ("internet explorer".equals(browser.name)) {
 				log.info("**Internet Explorer Browser**");
 				IEWebDriver iedriver = new IEWebDriver();
-				if ("local".equals(executionType))
-					driver = iedriver.getdriver(iedriver
-							.getCapabilities(browser));
-				else
-					driver = iedriver.getRemoteDriver(gridAddress,
-							iedriver.getCapabilities(browser));
+				driver = iedriver.getdriver(iedriver.getCapabilities(browser));
 			} else if ("firefox".equals(browser.name)) {
 				log.info("**FireFox Browser**");
 				FireFoxWebDriver ffdriver = new FireFoxWebDriver();
-				if ("local".equals(executionType))
-					driver = ffdriver.getdriver(ffdriver
-							.getCapabilities(browser));
-				else
-					driver = ffdriver.getRemoteDriver(gridAddress,
-							ffdriver.getCapabilities(browser));
+				driver = ffdriver.getdriver(ffdriver.getCapabilities(browser));
 			} else if ("chrome".equals(browser.name)) {
 				log.info("**Chrome Browser**");
 				ChromeWebDriver chdriver = new ChromeWebDriver();
-				if ("local".equals(executionType))
-					driver = chdriver.getdriver(chdriver
-							.getCapabilities(browser));
-				else
-					driver = chdriver.getRemoteDriver(gridAddress,
-							chdriver.getCapabilities(browser));
+				driver = chdriver.getdriver(chdriver.getCapabilities(browser));
 			}
 		}
-		log.info("Returning the instance of:" + driver.toString());
+		log.info("Returning the local instance of:" + driver.toString());
+		return driver;
+	}
+
+	public static WebDriver getRemoteDriver(Browser browser, Grid grid) {
+
+		if (driver == null) {
+			if ("internet explorer".equals(browser.name)) {
+				log.info("**Remote Internet Explorer Browser**");
+				IEWebDriver iedriver = new IEWebDriver();
+				driver = iedriver.getremotedriver(grid,
+						iedriver.getCapabilities(browser));
+			} else if ("firefox".equals(browser.name)) {
+				log.info("**Remote FireFox Browser**");
+				FireFoxWebDriver ffdriver = new FireFoxWebDriver();
+				driver = ffdriver.getremotedriver(grid,
+						ffdriver.getCapabilities(browser));
+			} else if ("chrome".equals(browser.name)) {
+				log.info("**Remote Chrome Browser**");
+				ChromeWebDriver chdriver = new ChromeWebDriver();
+				driver = chdriver.getremotedriver(grid,
+						chdriver.getCapabilities(browser));
+			}
+		}
+		log.info("Returning the remote instance of:" + driver.toString());
 		return driver;
 	}
 

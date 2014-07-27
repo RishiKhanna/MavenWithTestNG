@@ -13,7 +13,5 @@ public class SignInPageLocators {
 	public static By userNameLocator = By.id(homeProperties.getProperty("userNameLocator"));
 	public static By passwordLocator = By.id(homeProperties.getProperty("passwordLocator"));
 	public static String signInButtonLocator = homeProperties.getProperty("signInButtonLocator");
-	
-	
 
 }

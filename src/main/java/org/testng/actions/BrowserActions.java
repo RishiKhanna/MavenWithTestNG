@@ -16,6 +16,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.driverinit.Browser;
 import org.testng.driverinit.DriverInitialization;
+import org.testng.driverinit.Grid;
 import org.testng.propertymgr.PropertyManager;
 import org.testng.utilities.Logg;
 import org.testng.waits.WebDriverWaits;
@@ -45,16 +46,32 @@ public class BrowserActions {
 		return driver.manage().getCookieNamed(key).getValue();
 	}
 
-	public void openURL(String executionType, Browser browser) {
+	public void openURLonLocalBrowser(Browser browser) {
 		try {
-			driver = DriverInitialization.getDriver(browser, executionType);
-			log.info("Navigating to Application URL:"
+			driver = DriverInitialization.getDriver(browser);
+			log.info("Navigating to Application URL on Local Browser:"
 					+ applicationProperty.getProperty("applicationURL"));
 			driver.get(applicationProperty.getProperty("applicationURL"));
 			driver.manage().window().maximize();
-			log.info("Successfully navigated to the Application URL");
+			log.info("Successfully navigated to Application URL on the Local Browser");
 		} catch (Exception ex) {
-			log.fatal("Error in navigating the URL:"
+			log.fatal("Error in navigating the URL on the Local Browser::"
+					+ applicationProperty.getProperty("applicationURL"));
+			ex.printStackTrace();
+			closeBrowser();
+		}
+	}
+
+	public void openURLonRemoteBrowser(Grid grid, Browser browser) {
+		try {
+			driver = DriverInitialization.getRemoteDriver(browser, grid);
+			log.info("Navigating to Application URL on Remote Browser:"
+					+ applicationProperty.getProperty("applicationURL"));
+			driver.get(applicationProperty.getProperty("applicationURL"));
+			driver.manage().window().maximize();
+			log.info("Successfully navigated to Application URL on the Remote Browser");
+		} catch (Exception ex) {
+			log.fatal("Error in navigating to URL on the Remote Browser:"
 					+ applicationProperty.getProperty("applicationURL"));
 			ex.printStackTrace();
 			closeBrowser();

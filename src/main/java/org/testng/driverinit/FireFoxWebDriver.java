@@ -36,13 +36,12 @@ public class FireFoxWebDriver extends IDriver {
 		return capabilities;
 	}
 
-	public WebDriver getRemoteDriver(String gridAddress,
-			Capabilities capabilities) {
+	public WebDriver getremotedriver(Grid grid, Capabilities capabilities) {
 		WebDriver driver = null;
 		log.info("Intantiating/Launching the Internet Explorer Browser on Remote node");
 		try {
-			driver = new RemoteWebDriver(new URL("http://" + gridAddress
-					+ ":4444/wd/hub"), capabilities);
+			driver = new RemoteWebDriver(new URL("http://" + grid.gridAddress
+					+ ":" + grid.portNumber + "/wd/hub"), capabilities);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

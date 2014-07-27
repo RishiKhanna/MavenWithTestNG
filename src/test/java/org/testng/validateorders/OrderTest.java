@@ -17,5 +17,4 @@ public class OrderTest extends TestBase {
 		signInPage.enterPassword(signinProperties.getProperty("password"));
 		signInPage.clickLogin();
 	}
-
 }

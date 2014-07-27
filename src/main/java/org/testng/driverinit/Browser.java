@@ -8,13 +8,13 @@ public class Browser {
 	private Platform platform;
 
 	public Browser() {
-		name = "firefox"; //|chrome|firefox|htmlunit|internet explorer|
+		name = "firefox"; // |chrome|firefox|htmlunit|internet explorer|
 		version = "";
 		platform = Platform.WINDOWS;
 	}
 
 	public Browser(String name, String version, Platform platform) {
-		this.name = name; 
+		this.name = name;
 		this.version = version;
 		this.platform = platform;
 	}
