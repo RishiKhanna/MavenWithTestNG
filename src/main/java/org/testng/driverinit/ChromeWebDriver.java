@@ -11,7 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.utilities.Logg;
-import org.testng.utilities.Utilities;
 
 public class ChromeWebDriver extends IDriver {
 	private static Logger log = Logg.createLogger();
@@ -23,8 +22,7 @@ public class ChromeWebDriver extends IDriver {
 
 	public WebDriver getdriver(Capabilities capabilities) {
 		setPath();
-		log.info(Utilities.getCurrentThreadId()
-				+ "Instantiating/Launching the Chrome Browser");
+		log.info("Intantiating/Launching the Chrome Browser");
 		return new ChromeDriver(capabilities);
 	}
 
@@ -39,8 +37,7 @@ public class ChromeWebDriver extends IDriver {
 
 	public WebDriver getremotedriver(Grid grid, Capabilities capabilities) {
 		WebDriver driver = null;
-		log.info(Utilities.getCurrentThreadId()
-				+ "Intantiating/Launching the Chrome Browser on Remote Node");
+		log.info("Intantiating/Launching the Chrome Browser on Remote Node");
 		try {
 			driver = new RemoteWebDriver(new URL("http://" + grid.gridAddress
 					+ ":" + grid.portNumber + "/wd/hub"), capabilities);

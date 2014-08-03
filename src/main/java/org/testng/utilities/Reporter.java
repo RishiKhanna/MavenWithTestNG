@@ -10,21 +10,21 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 
 public class Reporter {
-	private static File file = null;
-	private final static Logger log = Logg.createLogger();
-	private static String datetimeString;
+	private File file = null;
+	private final Logger log = Logg.createLogger();
 
-	static {
-		datetimeString = new SimpleDateFormat("MM-dd-yyyy_hh.mm.ss")
+	public Reporter() {
+		String datetimeString = new SimpleDateFormat("MM-dd-yyyy_hh.mm.ss")
 				.format(new Date());
 		String fileName = ("report" + "-" + datetimeString + ".html");
-		log.info(Utilities.getCurrentThreadId() + "Reporting file name:"
-				+ fileName);
+		log.info("Reporting file name:" + fileName);
 		file = new File("./reports/" + fileName);
+	}
+
+	public void generateReport() {
 		FileWriter fstream = null;
 		try {
-			log.info(Utilities.getCurrentThreadId()
-					+ "Generating static part of the customized report");
+			log.info("Generating static part of the report");
 			file.createNewFile();
 			fstream = new FileWriter(file);
 
@@ -54,12 +54,10 @@ public class Reporter {
 			out.write("</tr>");
 			out.flush();
 			out.close();
-			log.info(Utilities.getCurrentThreadId()
-					+ "Generated static part of the report");
+			log.info("Generated static part of the report");
 		} catch (IOException e) {
 			// fstream.close();
 		}
-
 	}
 
 	public void sendStatusToReport(int SR_NO, String Module, String TC_ID,
