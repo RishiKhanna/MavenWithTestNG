@@ -11,6 +11,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.utilities.Logg;
+import org.testng.utilities.Utilities;
 
 public class FireFoxWebDriver extends IDriver {
 
@@ -23,7 +24,8 @@ public class FireFoxWebDriver extends IDriver {
 
 	public WebDriver getdriver(Capabilities capabilities) {
 		setPath();
-		log.info("Intantiating/Launching the Firefox Browser");
+		log.info(Utilities.getCurrentThreadId()
+				+ "Instantiating/Launching the Firefox Browser");
 		return new FirefoxDriver(capabilities);
 	}
 
@@ -38,7 +40,8 @@ public class FireFoxWebDriver extends IDriver {
 
 	public WebDriver getremotedriver(Grid grid, Capabilities capabilities) {
 		WebDriver driver = null;
-		log.info("Intantiating/Launching the Firefox Browser on Remote node");
+		log.info(Utilities.getCurrentThreadId()
+				+ "Intantiating/Launching the Firefox Browser on Remote node");
 		try {
 			driver = new RemoteWebDriver(new URL("http://" + grid.gridAddress
 					+ ":" + grid.portNumber + "/wd/hub"), capabilities);

@@ -36,7 +36,7 @@ public class Logg {
 						+ FileName);
 				LogManager.resetConfiguration();
 				PropertyConfigurator.configure(props);
-				System.out.println("Preoperty log4j.appender.File.File = logs/"
+				System.out.println("Property log4j.appender.File.File = logs/"
 						+ FileName);
 			}
 		} catch (IOException ex) {
