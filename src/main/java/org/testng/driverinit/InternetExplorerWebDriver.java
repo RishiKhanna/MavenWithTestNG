@@ -11,8 +11,9 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.utilities.Logg;
+import org.testng.utilities.Utilities;
 
-public class IEWebDriver extends IDriver {
+public class InternetExplorerWebDriver extends IDriver {
 
 	private static Logger log = Logg.createLogger();
 
@@ -23,7 +24,8 @@ public class IEWebDriver extends IDriver {
 
 	public WebDriver getdriver(Capabilities capabilities) {
 		setPath();
-		log.info("Intantiating/Launching the Internet Explorer Browser");
+		log.info(Utilities.getCurrentThreadId()
+				+ "Instantiating/Launching the Internet Explorer Browser");
 		return new InternetExplorerDriver(capabilities);
 	}
 
@@ -39,7 +41,8 @@ public class IEWebDriver extends IDriver {
 
 	public WebDriver getremotedriver(Grid grid, Capabilities capabilities) {
 		WebDriver driver = null;
-		log.info("Intantiating/Launching the Internet Explorer Browser on Remote Node");
+		log.info(Utilities.getCurrentThreadId()
+				+ "Instantiating/Launching the Internet Explorer Browser on Remote Node");
 		try {
 			driver = new RemoteWebDriver(new URL("http://" + grid.gridAddress
 					+ ":" + grid.portNumber + "/wd/hub"), capabilities);
@@ -49,3 +52,4 @@ public class IEWebDriver extends IDriver {
 		return driver;
 	}
 }
+

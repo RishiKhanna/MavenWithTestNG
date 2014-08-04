@@ -1,12 +1,36 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="TestAll">
+<suite name="Customers" verbose="1" parallel="tests" thread-count="3">
 
-	<test name="ValidateCustomers Test" preserve-order="true">
+	<test name="validateUniversityFormData" preserve-order="true">
 		<classes>
-			<class name="org.testng.validateorders.OrderTest">
+			<class name="org.testng.validateorders.ApplicationTest">
 				<methods>
 					<include name="applicationLoginIn" />
+							<include name="enterUniversityData" />
+					<include name="validateConfirmationMessage" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="validateUniversityFormData1" preserve-order="true">
+		<classes>
+			<class name="org.testng.validateorders.ApplicationTest">
+				<methods>
+					<include name="enterUniversityData" />
+					<include name="validateConfirmationMessage" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="validateUniversityFormData2" preserve-order="true">
+		<classes>
+			<class name="org.testng.validateorders.ApplicationTest">
+				<methods>
+					<include name="enterUniversityData" />
+					<include name="validateConfirmationMessage" />
 				</methods>
 			</class>
 		</classes>
