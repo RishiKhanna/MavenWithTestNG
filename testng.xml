@@ -4,19 +4,7 @@
 
 	<test name="validateUniversityFormData" preserve-order="true">
 		<classes>
-			<class name="org.testng.validateorders.ApplicationTest">
-				<methods>
-					<include name="applicationLoginIn" />
-							<include name="enterUniversityData" />
-					<include name="validateConfirmationMessage" />
-				</methods>
-			</class>
-		</classes>
-	</test>
-	
-	<test name="validateUniversityFormData1" preserve-order="true">
-		<classes>
-			<class name="org.testng.validateorders.ApplicationTest">
+			<class name="com.generic.validateorders.ApplicationTest">
 				<methods>
 					<include name="enterUniversityData" />
 					<include name="validateConfirmationMessage" />
@@ -24,10 +12,21 @@
 			</class>
 		</classes>
 	</test>
-	
+
+	<test name="validateUniversityFormData1" preserve-order="true">
+		<classes>
+			<class name="com.generic.validateorders.ApplicationTest">
+				<methods>
+					<include name="enterUniversityData" />
+					<include name="validateConfirmationMessage" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
 	<test name="validateUniversityFormData2" preserve-order="true">
 		<classes>
-			<class name="org.testng.validateorders.ApplicationTest">
+			<class name="com.generic.validateorders.ApplicationTest">
 				<methods>
 					<include name="enterUniversityData" />
 					<include name="validateConfirmationMessage" />
