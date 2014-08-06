@@ -8,6 +8,7 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -19,7 +20,7 @@ public class ChromeWebDriver extends IDriver {
 
 	protected void setPath() {
 		System.setProperty("webdriver.chrome.driver",
-				"src/main/resources/org/drivers/chromedriver.exe");
+				"src/main/resources/com/drivers/chromedriver.exe");
 	}
 
 	public WebDriver getdriver(Capabilities capabilities) {
@@ -30,11 +31,15 @@ public class ChromeWebDriver extends IDriver {
 	}
 
 	public Capabilities getCapabilities(Browser browser) {
+		ChromeOptions options= new ChromeOptions();
+		options.addArguments("start-maximized", "forced-maximize-mode",
+                "no-default-browser-check", "always-authorize-plugins","test-type");
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		capabilities.setBrowserName(browser.name);
 		capabilities.setPlatform(Platform.WINDOWS);
 		capabilities.setVersion(browser.version);
 		capabilities.setJavascriptEnabled(true);
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		return capabilities;
 	}
 

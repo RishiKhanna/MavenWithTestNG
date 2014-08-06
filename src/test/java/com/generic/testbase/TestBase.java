@@ -46,10 +46,10 @@ public class TestBase {
 	public void afterMethod(ITestContext context) throws InterruptedException {
 		WebDriver webdriver = (WebDriver) context.getAttribute(context
 				.getCurrentXmlTest().getName());
-		context.removeAttribute(context.getCurrentXmlTest().getName());
 		log.info(Utilities.getCurrentThreadId() + "Closing the instance:"
 				+ webdriver.toString());
 		webdriver.quit();
+		context.removeAttribute(context.getCurrentXmlTest().getName());
 	}
 
 	@BeforeTest

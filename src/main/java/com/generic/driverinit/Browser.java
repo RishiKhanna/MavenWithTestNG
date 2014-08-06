@@ -8,7 +8,7 @@ public class Browser {
 	private Platform platform;
 
 	public Browser() {
-		name = "firefox"; // |chrome|firefox|htmlunit|internet explorer|
+		name = "chrome"; // |chrome|firefox|htmlunit|internet explorer|
 		version = "";
 		platform = Platform.WINDOWS;
 	}
