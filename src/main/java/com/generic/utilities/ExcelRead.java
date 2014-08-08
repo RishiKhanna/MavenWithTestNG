@@ -11,8 +11,8 @@ import jxl.Workbook;
 
 public class ExcelRead {
 
-	private final static Properties excelRelativePath = new PropertyManager()
-			.loadPropertyFile("/src/main/resources/org/test/properties/application.properties");
+	private final static Properties excelRelativePath = PropertyManager
+			.loadApplicationPropertyFile("application.properties");
 	private final static Logger log = Logg.createLogger();
 	private static String[][] storage;
 
@@ -27,14 +27,15 @@ public class ExcelRead {
 			int row = sheet.getRows();
 
 			storage = new String[row][col];
-			log.info("Displaying values from the excel");
+			log.info(Utilities.getCurrentThreadId()
+					+ "Displaying values from the excel");
 			for (int i = 0; i < row; i++) {
 				for (int j = 0; j < col; j++) {
 					// getCell(int column, int row)
 					// Returns the cell specified at this row and at this
 					// column.
 					storage[i][j] = sheet.getCell(j, i).getContents();
-					log.info("[" + i + "]row [" + j + "]column value = "
+					log.info("		" + "[" + i + "]row [" + j + "]column value = "
 							+ storage[i][j]);
 				}
 			}

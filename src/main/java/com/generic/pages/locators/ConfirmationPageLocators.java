@@ -8,8 +8,8 @@ import com.generic.propertymgr.PropertyManager;
 
 public class ConfirmationPageLocators {
 
-	private final static Properties homeProperties = new PropertyManager()
-			.loadPropertyFile("/src/main/resources/com/test/properties/confirmation.properties");
+	private final static Properties homeProperties = PropertyManager
+			.loadApplicationPropertyFile("confirmation.properties");
 
 	public static By confirmMessage = By.cssSelector(homeProperties.getProperty("confirmMessage"));
 }

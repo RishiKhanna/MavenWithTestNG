@@ -2,14 +2,9 @@ package com.generic.driverinit;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
 import com.generic.utilities.Logg;
 import com.generic.utilities.Utilities;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class DriverInitialization {
 

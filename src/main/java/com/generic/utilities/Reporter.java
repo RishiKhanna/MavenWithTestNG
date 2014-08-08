@@ -43,7 +43,6 @@ public class Reporter {
 			// out.write("<table align=center id=customers border=1 width=100%>");
 			out.write("<table cellspacing=0 cellpadding=4 border=2 bordercolor=#224466 width=100%>");
 			out.write("<tr>");
-			out.write("<th width=5%>Sr No</th>");
 			out.write("<th width=15%>Module</th>");
 			out.write("<th>Test Case ID</th>");
 			out.write("<th>Test Name and Steps</th>");
@@ -61,19 +60,42 @@ public class Reporter {
 		}
 	}
 
-	public void sendStatusToReport(int SR_NO, String Module, String TC_ID,
+	public static void sendStatusToReport(String Module, String TC_ID,
 			String TestName, String Status, String Comments) {
 		FileWriter fstream = null;
 		try {
 			fstream = new FileWriter(file, true);
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write("<tr>");
-			out.write("<td align=\"center\">" + SR_NO + "</b></td>");
 			out.write("<td align=\"center\">" + Module + "</b></td>");
 			out.write("<td align=\"center\">" + TC_ID + "</b></td>");
 			out.write("<td>" + TestName + "</b></td>");
 			out.write("<td align=\"center\">" + Status + "</b></td>");
 			out.write("<td>" + Comments + "</b></td>");
+			out.write("</tr>");
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// fstream.close();
+		}
+	}
+
+	public static void sendFinalCountToReport(String total, String pass,
+			String fail) {
+		FileWriter fstream = null;
+		try {
+			fstream = new FileWriter(file, true);
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write("<table cellspacing=0 cellpadding=4 border=2 bordercolor=#224466 width=25%>");
+			out.write("<tr>");
+			out.write("<th width=5%>Total</th>");
+			out.write("<th width=5%>Pass</th>");
+			out.write("<th width=5%>Fail</th>");
+			out.write("</tr>");
+			out.write("<tr>");
+			out.write("<td align=\"center\">" + total + "</b></td>");
+			out.write("<td align=\"center\">" + pass + "</b></td>");
+			out.write("<td align=\"center\">" + fail + "</b></td>");
 			out.write("</tr>");
 			out.flush();
 			out.close();

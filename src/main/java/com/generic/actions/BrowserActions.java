@@ -28,17 +28,16 @@ public class BrowserActions {
 	private WebDriver driver;
 	private final Comparator compare;
 	private final Logger log;
-	private final Properties applicationProperty;
 	private final WebDriverWaits wait;
 	private static Cookie cookie;
+	private static final Properties applicationProperty = PropertyManager
+			.loadApplicationPropertyFile("application.properties");
 
 	public BrowserActions(WebDriver driver) {
 		this.driver = driver;
 		compare = new Comparator();
 		log = Logg.createLogger();
 		wait = new WebDriverWaits();
-		applicationProperty = new PropertyManager()
-				.loadPropertyFile("/src/main/resources/com/test/properties/application.properties");
 	}
 
 	public void storeDataInCookie(String key, String value) {

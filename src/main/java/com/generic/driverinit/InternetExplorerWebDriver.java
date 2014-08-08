@@ -20,7 +20,7 @@ public class InternetExplorerWebDriver extends IDriver {
 
 	protected void setPath() {
 		System.setProperty("webdriver.ie.driver",
-				"./Resources/Drivers/IEDriverServer.exe");
+				"src/main/resources/com/drivers/IEDriverServer.exe");
 	}
 
 	public WebDriver getdriver(Capabilities capabilities) {

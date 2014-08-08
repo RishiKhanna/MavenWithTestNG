@@ -8,9 +8,9 @@ import com.generic.propertymgr.PropertyManager;
 
 public class HomePageLocators {
 
-	private final static Properties homeProperties = new PropertyManager()
-			.loadPropertyFile("/src/main/resources/com/test/properties/home.properties");
-
+	private final static Properties homeProperties = PropertyManager
+			.loadApplicationPropertyFile("home.properties");
+	
 	public static By lastName = By.id(homeProperties.getProperty("lastName"));
 	public static By firstName = By.id(homeProperties.getProperty("firstName"));
 	public static By address1 = By.id(homeProperties.getProperty("address1"));

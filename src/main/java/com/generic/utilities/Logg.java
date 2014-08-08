@@ -13,7 +13,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class Logg {
 
-	// Class Instance Variables
+	//Class Instance Variables
 	private static Logger _logger;
 	private static String fileName = "defaultlog";
 
@@ -40,6 +40,7 @@ public class Logg {
 						+ FileName);
 			}
 		} catch (IOException ex) {
+			ex.printStackTrace();
 			System.out.print("IO Exception in static method of Logger Class. "
 					+ ex.getMessage());
 			System.exit(-1);

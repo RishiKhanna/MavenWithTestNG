@@ -1,7 +1,5 @@
 package com.generic.validateorders;
 
-import java.util.Random;
-
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -11,6 +9,7 @@ import org.testng.annotations.Test;
 import com.generic.pages.ConfirmationPage;
 import com.generic.pages.HomePage;
 import com.generic.testbase.TestBase;
+import com.generic.utilities.Reporter;
 
 public class ApplicationTest extends TestBase {
 
@@ -19,37 +18,42 @@ public class ApplicationTest extends TestBase {
 
 	@BeforeClass
 	public void beforeClass(ITestContext context) throws InterruptedException {
-		homePage = new HomePage((WebDriver)context.getAttribute(context.getCurrentXmlTest().getName()));
+		homePage = new HomePage((WebDriver) context.getAttribute(context
+				.getCurrentXmlTest().getName()));
 	}
 
-	@Test
-	public void enterUniversityData() throws InterruptedException {
-		Random rand=new Random();
-		Thread.sleep(rand.nextInt(10000));
-		homePage.enterLastName("Stewart");
-		homePage.enterFirstName("Jimmy");
-		homePage.enterAddress1("12/13 road");
-		homePage.enterAddress2("Thane");
-		homePage.enterCity("Mumbai");
-		homePage.enterState("Maharashtra");
-		homePage.enterZip("400049");
-		homePage.selectUnderGradProgOfInterest("Bachelor of Science in Information Technology");
-		homePage.selectUnderGradCertOfInterest("Essentials of Information Security");
-		homePage.selectGradProgOfInterest("Master of Science in Engineering Management");
-		homePage.selectGradCertOfInterest("Project Management");
-		homePage.enterPhoneAreaCode("033");
-		homePage.enterPhoneFirstThreeDigits("765");
-		homePage.enterPhoneLastFourDigits("5432");
-		homePage.enterEmail("rishi.khanna@gmail.com");
-		homePage.enterVerifyEmail("rishi.khanna@gmail.com");
-		confirmationPage=homePage.clickSubmit();
+	@Test(dataProvider = "ReadExcel")
+	public void enterUniversityData(String lastName, String firstName,
+			String address1, String address2, String city, String state,
+			String pincode, String underGradProgOfInterest,
+			String underGradCertOfInterest, String gradProgOfInterest,
+			String gradCertOfInterest, String areaCode,
+			String firstThreeDigits, String lastFourDigits, String emailId,
+			String verifyEmail) throws InterruptedException {
+		homePage.enterLastName(lastName);
+		homePage.enterFirstName(firstName);
+		homePage.enterAddress1(address1);
+		homePage.enterAddress2(address2);
+		homePage.enterCity(city);
+		homePage.enterState(state);
+		homePage.enterZip(pincode);
+		homePage.selectUnderGradProgOfInterest(underGradProgOfInterest);
+		homePage.selectUnderGradCertOfInterest(underGradCertOfInterest);
+		homePage.selectGradProgOfInterest(gradProgOfInterest);
+		homePage.selectGradCertOfInterest(gradCertOfInterest);
+		homePage.enterPhoneAreaCode(areaCode);
+		homePage.enterPhoneFirstThreeDigits(firstThreeDigits);
+		homePage.enterPhoneLastFourDigits(lastFourDigits);
+		homePage.enterEmail(emailId);
+		homePage.enterVerifyEmail(verifyEmail);
+		confirmationPage = homePage.clickSubmit();
+		Reporter.sendStatusToReport("UniversityForm","134","Enter details for university admission", "Pass", "NA");
 	}
-	
+
 	@Test
 	public void validateConfirmationMessage() throws InterruptedException {
-		Random rand=new Random();
-		Thread.sleep(rand.nextInt(10000));
-		Assert.assertTrue(confirmationPage.validateConfirmationMessage("test class"));
+		Assert.assertFalse(confirmationPage
+				.validateConfirmationMessage("test class"));
+		Reporter.sendStatusToReport("UniversityForm","134","Validate confirmation message", "Pass", "NA");
 	}
 }
-

@@ -12,8 +12,8 @@ import com.generic.propertymgr.PropertyManager;
 public class Utilities {
 
 	private Logger log = Logg.createLogger();
-	private final static Properties frameworkProperties = new PropertyManager()
-			.loadPropertyFile("/src/main/resources/com/framework/properties/framework.properties");
+	private final static Properties frameworkProperties = PropertyManager
+			.loadFrameworkPropertyFile("framework.properties");
 
 	public static String getCurrentThreadId() {
 		return "Thread:" + Thread.currentThread().getId() + "	-";

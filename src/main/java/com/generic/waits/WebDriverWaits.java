@@ -19,8 +19,8 @@ public class WebDriverWaits {
 
 	private Logger log = Logg.createLogger();
 	private Utilities util = new Utilities();
-	private final static Properties frameworkProperties = new PropertyManager()
-			.loadPropertyFile("/src/main/resources/com/framework/properties/framework.properties");
+	private final static Properties frameworkProperties = PropertyManager
+			.loadFrameworkPropertyFile("framework.properties");
 
 	private WebElement waitForElementVisibility(WebDriver driver, By locator)
 			throws TimeoutException {
