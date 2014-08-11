@@ -1,6 +1,5 @@
 package com.generic.validateorders;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
@@ -18,8 +17,7 @@ public class ApplicationTest extends TestBase {
 
 	@BeforeClass
 	public void beforeClass(ITestContext context) throws InterruptedException {
-		homePage = new HomePage((WebDriver) context.getAttribute(context
-				.getCurrentXmlTest().getName()));
+		homePage = new HomePage(getWebDriverInstance(context));
 	}
 
 	@Test(dataProvider = "ReadExcel")

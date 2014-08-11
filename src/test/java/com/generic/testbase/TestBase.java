@@ -5,8 +5,6 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -14,7 +12,6 @@ import org.testng.annotations.DataProvider;
 import com.generic.driverinit.Browser;
 import com.generic.driverinit.DriverInitialization;
 import com.generic.driverinit.Grid;
-import com.generic.listeners.ReportListener;
 import com.generic.propertymgr.PropertyManager;
 import com.generic.utilities.ExcelRead;
 import com.generic.utilities.Logg;
@@ -30,9 +27,6 @@ public class TestBase {
 	protected static String[][] strorage = null;
 	private final Properties applicationProperty = PropertyManager
 			.loadApplicationPropertyFile("application.properties");
-	private static int total;
-	private static int pass;
-	private static int fail;
 
 	@DataProvider(name = "ReadExcel")
 	public String[][] readDataFromExcel(Method m) {
@@ -47,6 +41,11 @@ public class TestBase {
 			strorage = ExcelRead.readTestData("Sheet2");
 		}
 		return strorage;
+	}
+
+	public static WebDriver getWebDriverInstance(ITestContext context) {
+		return (WebDriver) context.getAttribute(context.getCurrentXmlTest()
+				.getName());
 	}
 
 	@BeforeTest
@@ -66,24 +65,10 @@ public class TestBase {
 
 	@AfterTest
 	public void afterMethod(ITestContext context) throws InterruptedException {
-		WebDriver webdriver = (WebDriver) context.getAttribute(context
-				.getCurrentXmlTest().getName());
+		WebDriver webdriver = getWebDriverInstance(context);
 		log.info(Utilities.getCurrentThreadId() + "Closing the instance:"
 				+ webdriver.toString());
 		webdriver.quit();
 		context.removeAttribute(context.getCurrentXmlTest().getName());
-		total = total + context.getPassedTests().size()
-				+ context.getFailedTests().size();
-		pass = pass + context.getPassedTests().size();
-		fail = fail + context.getFailedTests().size();
 	}
-
-	@AfterSuite
-	public void afteSuite() { 
-		/*int failed = ReportListener.getFailedResults();
-		int passed = ReportListener.getPassedResults();
-		int skipped = ReportListener.getSkippedResults();
-		int total = failed+skipped+passed;
-		Reporter.sendFinalCountToReport(String.valueOf(total),String.valueOf(passed),String.valueOf(failed));*/
-	}
-}
+}	
