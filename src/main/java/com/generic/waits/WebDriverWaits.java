@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.generic.exceptions.WaitException;
 import com.generic.propertymgr.PropertyManager;
 import com.generic.utilities.Logg;
 import com.generic.utilities.Utilities;
@@ -23,7 +24,7 @@ public class WebDriverWaits {
 			.loadFrameworkPropertyFile("framework.properties");
 
 	private WebElement waitForElementVisibility(WebDriver driver, By locator)
-			throws TimeoutException {
+			throws TimeoutException, WaitException {
 		try {
 			WebElement element = null;
 			log.info(Utilities.getCurrentThreadId()
@@ -43,13 +44,15 @@ public class WebDriverWaits {
 							+ "Time Out Exception while waiting for the visibility of the element using By class:"
 							+ locator + "\n");
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+			throw new WaitException(
+					"Wait Exception in the waitForElementVisibility method of WebDriverWaits class"
+							+ ex);
 		}
 	}
 
 	public WebElement waitForElementVisibility(WebDriver driver,
-			WebElement beforeVisibilityElement) throws TimeoutException {
+			WebElement beforeVisibilityElement) throws TimeoutException,
+			WaitException {
 		try {
 			WebElement afterVisibilityElement = null;
 			log.info(Utilities.getCurrentThreadId()
@@ -69,13 +72,14 @@ public class WebDriverWaits {
 							+ "Time Out Exception while waiting for the visibility of the web element:"
 							+ beforeVisibilityElement + "\n");
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+			throw new WaitException(
+					"Wait Exception in the waitForElementVisibility method of WebDriverWaits class"
+							+ ex);
 		}
 	}
 
 	private WebElement waitForElementClickability(WebDriver driver, By locator)
-			throws TimeoutException {
+			throws TimeoutException, WaitException {
 		try {
 			WebElement element = null;
 			log.info(Utilities.getCurrentThreadId()
@@ -94,13 +98,14 @@ public class WebDriverWaits {
 							+ "Time Out Exception while waiting for the clickability of the element:"
 							+ locator + "\n");
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+			throw new WaitException(
+					"Wait Exception in the waitForElementClickability method of WebDriverWaits class"
+							+ ex);
 		}
 	}
 
 	private List<WebElement> waitForElementsVisibility(WebDriver driver,
-			By locator) throws TimeoutException {
+			By locator) throws TimeoutException, WaitException {
 		try {
 			List<WebElement> element = null;
 			log.info(Utilities.getCurrentThreadId()
@@ -119,13 +124,14 @@ public class WebDriverWaits {
 							+ "Time Out Exception while waiting for the visibility of the elements:"
 							+ locator + "\n");
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+			throw new WaitException(
+					"Wait Exception in the waitForElementsVisibility method of WebDriverWaits class"
+							+ ex);
 		}
 	}
 
 	private List<WebElement> waitForElementsPresence(WebDriver driver,
-			By locator) throws TimeoutException {
+			By locator) throws TimeoutException, WaitException {
 		try {
 			List<WebElement> element = null;
 			log.info(Utilities.getCurrentThreadId()
@@ -144,12 +150,13 @@ public class WebDriverWaits {
 							+ "Time Out Exception while waiting for the presence of the elements:"
 							+ locator + "\n");
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+			throw new WaitException(
+					"Wait Exception in the waitForElementsPresence method of WebDriverWaits class"
+							+ ex);
 		}
 	}
 
-	public void waitForTimePeriod(int timeOut) {
+	public void waitForTimePeriod(int timeOut) throws WaitException, InterruptedException {
 		try {
 			log.info(Utilities.getCurrentThreadId()
 					+ "Thread.sleep activated for " + timeOut / 1000
@@ -158,14 +165,16 @@ public class WebDriverWaits {
 			log.info(Utilities.getCurrentThreadId()
 					+ "Ended after waiting for " + timeOut / 1000 + " seconds");
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			throw new InterruptedException();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			throw new WaitException(
+					"Wait Exception in the waitForTimePeriod method of WebDriverWaits class"
+							+ ex);
 		}
 	}
 
 	public WebElement syncElementUsing(String syncKey, WebDriver driver,
-			By locator) {
+			By locator) throws TimeoutException, WaitException {
 		if ("visibility".equals(syncKey))
 			return waitForElementVisibility(driver, locator);
 		else if ("clickability".equals(syncKey))
@@ -175,7 +184,7 @@ public class WebDriverWaits {
 	}
 
 	public List<WebElement> syncElementsUsing(String syncKey, WebDriver driver,
-			By locator) {
+			By locator) throws TimeoutException, WaitException {
 		if ("visibility".equals(syncKey))
 			return waitForElementsVisibility(driver, locator);
 		else if ("presence".equals(syncKey))

@@ -1,5 +1,7 @@
 package com.generic.testbase;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.Properties;
 import org.apache.log4j.Logger;
@@ -28,6 +30,13 @@ public class TestBase {
 	protected static String[][] strorage = null;
 	private final Properties applicationProperty = PropertyManager
 			.loadApplicationPropertyFile("application.properties");
+
+	protected void logErrorMessage(Throwable ex) {
+		StringWriter stw = new StringWriter();
+		PrintWriter pw = new PrintWriter(stw);
+		ex.printStackTrace(pw);
+		log.error(stw.toString());
+	}
 
 	@DataProvider(name = "ReadExcel")
 	public String[][] readDataFromExcel(Method m) {
@@ -59,9 +68,9 @@ public class TestBase {
 			Grid grid = new Grid();
 			driver = RemoteExecution.getRemoteDriver(browser, grid);
 		}
+		driver.manage().window().maximize();
 		context.setAttribute(context.getCurrentXmlTest().getName(), driver);
 		driver.get(applicationProperty.getProperty("applicationURL"));
-		driver.manage().window().maximize();
 	}
 
 	@AfterTest
@@ -72,4 +81,4 @@ public class TestBase {
 		webdriver.quit();
 		context.removeAttribute(context.getCurrentXmlTest().getName());
 	}
-}	
+}
