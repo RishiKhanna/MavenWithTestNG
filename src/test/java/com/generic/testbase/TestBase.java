@@ -10,8 +10,9 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 
 import com.generic.driverinit.Browser;
-import com.generic.driverinit.DriverInitialization;
+import com.generic.driverinit.LocalExecution;
 import com.generic.driverinit.Grid;
+import com.generic.driverinit.RemoteExecution;
 import com.generic.propertymgr.PropertyManager;
 import com.generic.utilities.ExcelRead;
 import com.generic.utilities.Logg;
@@ -53,10 +54,10 @@ public class TestBase {
 		Browser browser = new Browser();
 		WebDriver driver;
 		if ("local".equals(frameworkProperty.getProperty("executionType"))) {
-			driver = DriverInitialization.getDriver(browser);
+			driver = LocalExecution.getDriver(browser);
 		} else {
 			Grid grid = new Grid();
-			driver = DriverInitialization.getRemoteDriver(browser, grid);
+			driver = RemoteExecution.getRemoteDriver(browser, grid);
 		}
 		context.setAttribute(context.getCurrentXmlTest().getName(), driver);
 		driver.get(applicationProperty.getProperty("applicationURL"));
