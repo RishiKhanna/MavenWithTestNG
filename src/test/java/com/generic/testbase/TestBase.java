@@ -6,7 +6,9 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.testng.IReporter;
 import org.testng.ITestContext;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -74,7 +76,7 @@ public class TestBase {
 	}
 
 	@AfterTest
-	public void afterMethod(ITestContext context) throws InterruptedException {
+	public void afterTest(ITestContext context) throws InterruptedException {
 		WebDriver webdriver = getWebDriverInstance(context);
 		log.info(Utilities.getCurrentThreadId() + "Closing the instance:"
 				+ webdriver.toString());

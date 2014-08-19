@@ -30,58 +30,21 @@ public class ApplicationTest extends TestBase {
 			String firstThreeDigits, String lastFourDigits, String emailId,
 			String verifyEmail) throws Exception {
 		try {
-			homePage.enterLastName(lastName);
-			homePage.enterFirstName(firstName);
-			homePage.enterAddress1(address1);
-			homePage.enterAddress2(address2);
-			homePage.enterCity(city);
-			homePage.enterState(state);
-			homePage.enterZip(pincode);
-			homePage.selectUnderGradProgOfInterest(underGradProgOfInterest);
-			homePage.selectUnderGradCertOfInterest(underGradCertOfInterest);
-			homePage.selectGradProgOfInterest(gradProgOfInterest);
-			homePage.selectGradCertOfInterest(gradCertOfInterest);
-			homePage.enterPhoneAreaCode(areaCode);
-			homePage.enterPhoneFirstThreeDigits(firstThreeDigits);
-			homePage.enterPhoneLastFourDigits(lastFourDigits);
-			homePage.enterEmail(emailId);
-			homePage.enterVerifyEmail(verifyEmail);
-			confirmationPage = homePage.clickSubmit();
+			homePage.enterFormDetails(lastName, firstName, address1, address2,
+					city, state, pincode, underGradProgOfInterest,
+					underGradCertOfInterest, gradProgOfInterest,
+					gradCertOfInterest, areaCode, firstThreeDigits,
+					lastFourDigits, emailId, verifyEmail);
+			Assert.assertTrue(confirmationPage
+					.validateConfirmationMessage("test class"));
+			Reporter.sendStatusToReport("UniversityForm", "134",
+					"Validate confirmation message", "Pass", "NA");
 		} catch (Exception excetion) {
 			logErrorMessage(excetion);
 			Reporter.sendStatusToReport("UniversityForm", "134",
 					"Validate confirmation message", "Fail",
 					excetion.getLocalizedMessage());
 			throw excetion;
-		} 
-	}
-
-	@Test()
-	public void validateConfirmationMessage() throws Exception {
-		try {
-			if(confirmationPage==null)
-				throw new SkipException("Confirmation Page not initialized");
-			Assert.assertTrue(confirmationPage
-					.validateConfirmationMessage("test class"));
-			Reporter.sendStatusToReport("UniversityForm", "134",
-					"Validate confirmation message", "Pass", "NA");
-		} catch (AssertionError ae) {
-			logErrorMessage(ae);
-			Reporter.sendStatusToReport("UniversityForm", "134",
-					"Validate confirmation message", "Fail", ae.getLocalizedMessage());
-			Assert.fail();
 		}
-		catch (Exception excetion) {
-			logErrorMessage(excetion);
-			Reporter.sendStatusToReport("UniversityForm", "134",
-					"Validate confirmation message", "Fail",
-					excetion.getLocalizedMessage());
-			throw excetion;
-		} 
-	}
-
-	@Test
-	public void checkMethod() {
-		System.out.println("--------------------------hello------------------------------");
 	}
 }
