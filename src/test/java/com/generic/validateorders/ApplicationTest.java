@@ -2,7 +2,6 @@ package com.generic.validateorders;
 
 import org.testng.Assert;
 import org.testng.ITestContext;
-import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -10,6 +9,7 @@ import com.generic.pages.ConfirmationPage;
 import com.generic.pages.HomePage;
 import com.generic.testbase.TestBase;
 import com.generic.utilities.Reporter;
+import com.generic.utilities.Utilities;
 
 public class ApplicationTest extends TestBase {
 
@@ -30,19 +30,21 @@ public class ApplicationTest extends TestBase {
 			String firstThreeDigits, String lastFourDigits, String emailId,
 			String verifyEmail) throws Exception {
 		try {
-			homePage.enterFormDetails(lastName, firstName, address1, address2,
-					city, state, pincode, underGradProgOfInterest,
-					underGradCertOfInterest, gradProgOfInterest,
-					gradCertOfInterest, areaCode, firstThreeDigits,
-					lastFourDigits, emailId, verifyEmail);
-			Assert.assertTrue(confirmationPage
+			confirmationPage = homePage.enterFormDetails(lastName, firstName,
+					address1, address2, city, state, pincode,
+					underGradProgOfInterest, underGradCertOfInterest,
+					gradProgOfInterest, gradCertOfInterest, areaCode,
+					firstThreeDigits, lastFourDigits, emailId, verifyEmail);
+			Assert.assertFalse(confirmationPage
 					.validateConfirmationMessage("test class"));
 			Reporter.sendStatusToReport("UniversityForm", "134",
-					"Validate confirmation message", "Pass", "NA");
+					Utilities.getCurrentThreadId()
+							+ "Validate confirmation message", "Pass", "NA");
 		} catch (Exception excetion) {
 			logErrorMessage(excetion);
 			Reporter.sendStatusToReport("UniversityForm", "134",
-					"Validate confirmation message", "Fail",
+					Utilities.getCurrentThreadId()
+							+ "Validate confirmation message", "Fail",
 					excetion.getLocalizedMessage());
 			throw excetion;
 		}

@@ -22,22 +22,22 @@ public class RemoteExecution {
 		WebDriver driver = null;
 		DesiredCapabilities capabilities = null;
 		try {
-			if ("internet explorer".equals(browser.name)) {
+			if ("internet explorer".equals(browser.getName())) {
 				log.info(Utilities.getCurrentThreadId()
 						+ "**Remote Internet Explorer Browser**");
 				capabilities = Capabilities
 						.setInternetExplorerCapability(browser);
-			} else if ("firefox".equals(browser.name)) {
+			} else if ("firefox".equals(browser.getName())) {
 				log.info(Utilities.getCurrentThreadId()
 						+ "**Remote FireFox Browser**");
 				capabilities = Capabilities.setFirefoxCapability(browser);
-			} else if ("chrome".equals(browser.name)) {
+			} else if ("chrome".equals(browser.getName())) {
 				log.info(Utilities.getCurrentThreadId()
 						+ "**Remote Chrome Browser**");
 				capabilities = Capabilities.setChromeCapability(browser);
 			}
-			driver = new RemoteWebDriver(new URL("http://" + grid.gridAddress
-					+ ":" + grid.portNumber + "/wd/hub"), capabilities);
+			driver = new RemoteWebDriver(new URL("http://" + grid.getGridAddress()
+					+ ":" + grid.getPortNumber() + "/wd/hub"), capabilities);
 			log.info(Utilities.getCurrentThreadId()
 					+ "Returning the remote instance of:" + driver.toString());
 		} catch (MalformedURLException e) {

@@ -2,16 +2,19 @@ package com.generic.driverinit;
 
 public class Grid {
 
-	public String portNumber;
-	public String gridAddress;
+	private String portNumber;
+	private String gridAddress;
 
-	public Grid() {
-		portNumber = "4444";
-		gridAddress = "localhost";
-	}
-
-	public Grid(String portNumber,String gridAddress) {
+	public Grid(String gridAddress,String portNumber) {
 		this.portNumber = portNumber;
 		this.gridAddress = gridAddress;
+	}
+	
+	public String getPortNumber() {
+		return portNumber;
+	}
+
+	public String getGridAddress() {
+		return gridAddress;
 	}
 }

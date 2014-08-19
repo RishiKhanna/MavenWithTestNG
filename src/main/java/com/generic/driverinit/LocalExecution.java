@@ -19,7 +19,7 @@ public class LocalExecution {
 
 	public static WebDriver getDriver(Browser browser) {
 		WebDriver driver = null;
-		if ("internet explorer".equals(browser.name)) {
+		if ("internet explorer".equals(browser.getName())) {
 			log.info(Utilities.getCurrentThreadId()
 					+ "**Internet Explorer Browser**");
 			System.setProperty("webdriver.ie.driver",
@@ -29,14 +29,14 @@ public class LocalExecution {
 			log.info(Utilities.getCurrentThreadId()
 					+ "Instantiating/Launching the Internet Explorer Browser");
 			driver = new InternetExplorerDriver(capabilities);
-		} else if ("firefox".equals(browser.name)) {
+		} else if ("firefox".equals(browser.getName())) {
 			log.info(Utilities.getCurrentThreadId() + "**FireFox Browser**");
 			DesiredCapabilities capabilities = Capabilities
 					.setFirefoxCapability(browser);
 			log.info(Utilities.getCurrentThreadId()
 					+ "Instantiating/Launching the Firefox Browser");
 			driver = new FirefoxDriver(capabilities);
-		} else if ("chrome".equals(browser.name)) {
+		} else if ("chrome".equals(browser.getName())) {
 			log.info(Utilities.getCurrentThreadId() + "**Chrome Browser**");
 			System.setProperty("webdriver.chrome.driver",
 					"src/main/resources/com/drivers/chromedriver.exe");

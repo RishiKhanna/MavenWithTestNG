@@ -6,9 +6,7 @@ import java.lang.reflect.Method;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.testng.IReporter;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -22,6 +20,7 @@ import com.generic.utilities.ExcelRead;
 import com.generic.utilities.Logg;
 import com.generic.utilities.Reporter;
 import com.generic.utilities.Utilities;
+import org.openqa.selenium.Platform;
 
 public class TestBase {
 	private final Properties frameworkProperty = PropertyManager
@@ -62,12 +61,16 @@ public class TestBase {
 
 	@BeforeTest
 	public void beforeTest(ITestContext context) {
-		Browser browser = new Browser();
+		Browser browser = new Browser(
+				frameworkProperty.getProperty("browserName"),
+				frameworkProperty.getProperty("browserVersion"),
+				Platform.WINDOWS);
 		WebDriver driver;
 		if ("local".equals(frameworkProperty.getProperty("executionType"))) {
 			driver = LocalExecution.getDriver(browser);
 		} else {
-			Grid grid = new Grid();
+			Grid grid = new Grid(frameworkProperty.getProperty("gridURL"),
+					frameworkProperty.getProperty("gridPort"));
 			driver = RemoteExecution.getRemoteDriver(browser, grid);
 		}
 		driver.manage().window().maximize();
