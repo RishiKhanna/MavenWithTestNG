@@ -37,12 +37,12 @@ public class ApplicationTest extends TestBase {
 					firstThreeDigits, lastFourDigits, emailId, verifyEmail);
 			Assert.assertFalse(confirmationPage
 					.validateConfirmationMessage("test class"));
-			Reporter.sendStatusToReport("UniversityForm", "134",
+			Reporter.sendStatusToReport("UniversityForm", "123",
 					Utilities.getCurrentThreadId()
 							+ "Validate confirmation message", "Pass", "NA");
 		} catch (Exception excetion) {
 			logErrorMessage(excetion);
-			Reporter.sendStatusToReport("UniversityForm", "134",
+			Reporter.sendStatusToReport("UniversityForm", "123",
 					Utilities.getCurrentThreadId()
 							+ "Validate confirmation message", "Fail",
 					excetion.getLocalizedMessage());
