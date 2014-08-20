@@ -12,7 +12,8 @@ public class HomePage extends PageBase {
 	public HomePage(WebDriver driver) {
 		super(driver);
 	}
-
+    
+	//added
 	public HomePage enterLastName(String lastNameVal) throws TimeoutException,
 			WaitException {
 		action.enterText(VISIBILITY, lastName, lastNameVal);
