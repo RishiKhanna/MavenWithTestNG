@@ -22,7 +22,7 @@ public class ApplicationTest extends TestBase {
 	}
 
 	@Test(dataProvider = "ReadExcel")
-	public void enterUniversityData(String lastName, String firstName,
+	public void enterAndValidateUniversityData(String lastName, String firstName,
 			String address1, String address2, String city, String state,
 			String pincode, String underGradProgOfInterest,
 			String underGradCertOfInterest, String gradProgOfInterest,

@@ -3,19 +3,17 @@ package com.generic.utilities;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 public class Logg {
 
-	//Class Instance Variables
 	private static Logger _logger;
-	private static String fileName = "defaultlog";
+	private static final String fileName = "defaultlog";
+	private static final String dateAndTimeFormat = "MM-dd-yyyy_hh.mm.ss";
+	private static final String logProperttFilePath = "./src/main/resources/com/framework/properties/log4j.properties";
 
 	static {
 		/**
@@ -23,15 +21,14 @@ public class Logg {
 		 * timestamp to make it unique
 		 */
 		try {
-			String datetimeString = new SimpleDateFormat("MM-dd-yyyy_hh.mm.ss")
-					.format(new Date());
-			String FileName = (fileName + "-" + datetimeString + ".log");
+			String dateTime = DateAndTime
+					.getFormattedCurrentDateAndTime(dateAndTimeFormat);
+			String FileName = fileName + "-" + dateTime + ".log";
 			File file = new File("logs/" + FileName);
 
 			if (file.createNewFile()) {
 				Properties props = new Properties();
-				props.load(new FileInputStream(
-						".\\src\\main\\resources\\com\\framework\\properties\\log4j.properties"));
+				props.load(new FileInputStream(logProperttFilePath));
 				props.setProperty("log4j.appender.File.File", "logs/"
 						+ FileName);
 				LogManager.resetConfiguration();
@@ -50,7 +47,7 @@ public class Logg {
 
 	/**
 	 * This method creates instance of the Logger class coming from log4j jar by
-	 * implementing a singlteton
+	 * implementing a singelton
 	 * 
 	 * @return _logger - new instance if no instance exist else an existing
 	 *         instance if the method is invoked previously

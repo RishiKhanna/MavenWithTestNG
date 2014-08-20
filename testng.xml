@@ -6,8 +6,7 @@
 		<classes>
 			<class name="com.generic.validateorders.ApplicationTest">
 				<methods>
-					<include name="enterUniversityData" />
-					<include name="validateConfirmationMessage" />
+					<include name="enterAndValidateUniversityData" />
 				</methods>
 			</class>
 		</classes>
@@ -17,8 +16,7 @@
 		<classes>
 			<class name="com.generic.validateorders.ApplicationTest">
 				<methods>
-					<include name="enterUniversityData" />
-					<include name="validateConfirmationMessage" />
+					<include name="enterAndValidateUniversityData" />
 				</methods>
 			</class>
 		</classes>
@@ -28,8 +26,7 @@
 		<classes>
 			<class name="com.generic.validateorders.ApplicationTest">
 				<methods>
-					<include name="enterUniversityData" />
-					<include name="validateConfirmationMessage" />
+					<include name="enterAndValidateUniversityData" />
 				</methods>
 			</class>
 		</classes>
