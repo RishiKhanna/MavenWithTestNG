@@ -30,6 +30,7 @@ public class ApplicationTest extends TestBase {
 			String firstThreeDigits, String lastFourDigits, String emailId,
 			String verifyEmail) throws Exception {
 		try {
+			
 			confirmationPage = homePage.enterFormDetails(lastName, firstName,
 					address1, address2, city, state, pincode,
 					underGradProgOfInterest, underGradCertOfInterest,

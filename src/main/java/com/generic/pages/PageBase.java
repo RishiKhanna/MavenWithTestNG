@@ -13,15 +13,18 @@ public class PageBase {
 	protected static final String CLICKABILITY = "clickability";
 
 	protected BrowserActions action;
-	protected Utilities util;
-	protected Comparator compare;
 	protected WebDriver driver;
+	protected Utilities util = new Utilities();
+	protected Comparator compare = new Comparator();
 
 	public PageBase(WebDriver driver) {
-		this.driver=driver;
-		this.action= new BrowserActions(driver);
-		util = new Utilities();
-		compare = new Comparator();
+		this.driver = driver;
+		this.action = new BrowserActions(driver);
+	}
+
+	public PageBase navigateTo(String url) throws Exception {
+		action.navigateToURL(url);
+		return this;
 	}
 
 }

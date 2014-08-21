@@ -20,9 +20,9 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 
 import com.generic.driverinit.Browser;
-import com.generic.driverinit.LocalExecution;
-import com.generic.driverinit.Grid;
-import com.generic.driverinit.RemoteExecution;
+import com.generic.driverinit.DriverFactory;
+import com.generic.driverinit.IDriver;
+import com.generic.pages.PageBase;
 import com.generic.propertymgr.PropertyManager;
 import com.generic.utilities.DateAndTime;
 import com.generic.utilities.ExcelRead;
@@ -34,16 +34,16 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.Augmenter;
 
 public class TestBase {
-	private final Properties frameworkProperty = PropertyManager
+	private static final Properties frameworkProperty = PropertyManager
 			.loadFrameworkPropertyFile("framework.properties");
 	protected static Reporter report = new Reporter();
-	protected final Logger log = Logg.createLogger();
+	protected static final Logger log = Logg.createLogger();
 	protected final static Utilities util = new Utilities();
 	protected static String[][] strorage = null;
 	private final Properties applicationProperty = PropertyManager
 			.loadApplicationPropertyFile("application.properties");
 	private static final String dateAndTimeFormat = "MM-dd-yyyy_hh.mm.ss";
-
+	
 	protected void logErrorMessage(Throwable ex) {
 		StringWriter stw = new StringWriter();
 		PrintWriter pw = new PrintWriter(stw);
@@ -75,22 +75,18 @@ public class TestBase {
 	}
 
 	@BeforeTest
-	public void beforeTest(ITestContext context) {
+	public void beforeTest(ITestContext context) throws Exception {
 		Browser browser = new Browser(
 				frameworkProperty.getProperty("browserName"),
 				frameworkProperty.getProperty("browserVersion"),
 				Platform.WINDOWS);
-		WebDriver driver;
-		if ("local".equals(frameworkProperty.getProperty("executionType"))) {
-			driver = LocalExecution.getDriver(browser);
-		} else {
-			Grid grid = new Grid(frameworkProperty.getProperty("gridURL"),
-					frameworkProperty.getProperty("gridPort"));
-			driver = RemoteExecution.getRemoteDriver(browser, grid);
-		}
+		DriverFactory factory = new DriverFactory();
+		IDriver idriver = factory.getDriver(frameworkProperty
+				.getProperty("executionType"));
+		WebDriver driver = idriver.getDriver(browser);
 		driver.manage().window().maximize();
 		context.setAttribute(context.getCurrentXmlTest().getName(), driver);
-		driver.get(applicationProperty.getProperty("applicationURL"));
+		new PageBase(driver).navigateTo(applicationProperty.getProperty("applicationURL"));
 	}
 
 	@AfterTest

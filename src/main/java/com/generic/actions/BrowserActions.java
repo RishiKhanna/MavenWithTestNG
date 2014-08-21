@@ -16,8 +16,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.ITestContext;
 
-import com.generic.driverinit.Browser;
-import com.generic.driverinit.Grid;
 import com.generic.exceptions.WaitException;
 import com.generic.propertymgr.PropertyManager;
 import com.generic.utilities.Logg;
@@ -27,18 +25,15 @@ import com.generic.waits.WebDriverWaits;
 public class BrowserActions {
 
 	private WebDriver driver;
-	private final Comparator compare;
-	private final Logger log;
-	private final WebDriverWaits wait;
+	private final Comparator compare = new Comparator();
+	private final Logger log = Logg.createLogger();
+	private final WebDriverWaits wait = new WebDriverWaits();
 	private static Cookie cookie;
 	private static final Properties applicationProperty = PropertyManager
 			.loadApplicationPropertyFile("application.properties");
 
 	public BrowserActions(WebDriver driver) {
 		this.driver = driver;
-		compare = new Comparator();
-		log = Logg.createLogger();
-		wait = new WebDriverWaits();
 	}
 
 	public void storeDataInCookie(String key, String value) {
@@ -59,36 +54,17 @@ public class BrowserActions {
 		return driver.manage().getCookieNamed(key).getValue();
 	}
 
-	public void openURLonLocalBrowser(Browser browser) throws Exception {
+	public void navigateToURL(String url) throws Exception {
 		try {
 			log.info(Utilities.getCurrentThreadId()
 					+ "Navigating to Application URL on Local Browser:"
 					+ applicationProperty.getProperty("applicationURL"));
 			driver.get(applicationProperty.getProperty("applicationURL"));
-			driver.manage().window().maximize();
 			log.info(Utilities.getCurrentThreadId()
 					+ "Successfully navigated to Application URL on the Local Browser");
 		} catch (Exception ex) {
 			String message = Utilities.getCurrentThreadId()
 					+ "Error in navigating the URL on the Local Browser::"
-					+ applicationProperty.getProperty("applicationURL");
-			log.fatal(message);
-			throw new Exception(message);
-		}
-	}
-
-	public void openURLonRemoteBrowser(Grid grid, Browser browser) throws Exception {
-		try {
-			log.info(Utilities.getCurrentThreadId()
-					+ "Navigating to Application URL on Remote Browser:"
-					+ applicationProperty.getProperty("applicationURL"));
-			driver.get(applicationProperty.getProperty("applicationURL"));
-			driver.manage().window().maximize();
-			log.info(Utilities.getCurrentThreadId()
-					+ "Successfully navigated to Application URL on the Remote Browser");
-		} catch (Exception ex) {
-			String message = Utilities.getCurrentThreadId()
-					+ "Error in navigating to URL on the Remote Browser:"
 					+ applicationProperty.getProperty("applicationURL");
 			log.fatal(message);
 			throw new Exception(message);

@@ -10,14 +10,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import com.generic.utilities.Logg;
 import com.generic.utilities.Utilities;
 
-public class LocalExecution {
+public class LocalDriver implements IDriver {
 
 	private static Logger log = Logg.createLogger();
-
-	private LocalExecution() {
-	}
-
-	public static WebDriver getDriver(Browser browser) {
+	
+	public WebDriver getDriver(Browser browser) {
 		WebDriver driver = null;
 		if ("internet explorer".equals(browser.getName())) {
 			log.info(Utilities.getCurrentThreadId()
