@@ -15,6 +15,7 @@ import com.generic.exceptions.WaitException;
 import com.generic.propertymgr.PropertyManager;
 import com.generic.utilities.Logg;
 import com.generic.utilities.Utilities;
+import com.google.common.base.Function;
 
 public class WebDriverWaits {
 
@@ -156,7 +157,8 @@ public class WebDriverWaits {
 		}
 	}
 
-	public void waitForTimePeriod(int timeOut) throws WaitException, InterruptedException {
+	public void waitForTimePeriod(int timeOut) throws WaitException,
+			InterruptedException {
 		try {
 			log.info(Utilities.getCurrentThreadId()
 					+ "Thread.sleep activated for " + timeOut / 1000
@@ -169,6 +171,34 @@ public class WebDriverWaits {
 		} catch (Exception ex) {
 			throw new WaitException(
 					"Wait Exception in the waitForTimePeriod method of WebDriverWaits class"
+							+ ex);
+		}
+	}
+
+	public Boolean checkForElementVisibility(WebDriver driver, final By locator)
+			throws WaitException {
+		try {
+			log.info(Utilities.getCurrentThreadId()
+					+ "Checking for the visibility of the element using By class:"
+					+ locator);
+			WebDriverWait wait = new WebDriverWait(driver,
+					util.convertToInteger(frameworkProperties
+							.getProperty("elementSearchTimeOut")));
+			wait.until(new Function<WebDriver, Boolean>() {
+				public Boolean apply(WebDriver driver) {
+					return driver.findElement(locator).isDisplayed();
+				}
+			});
+			log.info(Utilities.getCurrentThreadId() + "Element visible.");
+			return true;
+		} catch (TimeoutException tm) {
+			log.error(Utilities.getCurrentThreadId()
+					+ "Time Out Exception while waiting for the visibility of the element using By class:"
+					+ locator + "\n");
+			return false;
+		} catch (Exception ex) {
+			throw new WaitException(
+					"Wait Exception in the checkForElementVisibility method of WebDriverWaits class"
 							+ ex);
 		}
 	}

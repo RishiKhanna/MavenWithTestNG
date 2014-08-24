@@ -40,17 +40,10 @@ public class TestBase {
 	protected static final Logger log = Logg.createLogger();
 	protected final static Utilities util = new Utilities();
 	protected static String[][] strorage = null;
-	private final Properties applicationProperty = PropertyManager
-			.loadApplicationPropertyFile("application.properties");
 	private static final String dateAndTimeFormat = "MM-dd-yyyy_hh.mm.ss";
+	private final static Properties applicationProperty = PropertyManager
+			.loadApplicationPropertyFile("application.properties");
 	
-	protected void logErrorMessage(Throwable ex) {
-		StringWriter stw = new StringWriter();
-		PrintWriter pw = new PrintWriter(stw);
-		ex.printStackTrace(pw);
-		log.error(stw.toString());
-	}
-
 	@DataProvider(name = "ReadExcel")
 	public String[][] readDataFromExcel(Method m) {
 		log.info(Utilities.getCurrentThreadId() + "Data Provider: Read Excel");
@@ -69,13 +62,20 @@ public class TestBase {
 		return strorage;
 	}
 
-	public static WebDriver getWebDriverInstance(ITestContext context) {
+	protected void logErrorMessage(Throwable ex) {
+		StringWriter stw = new StringWriter();
+		PrintWriter pw = new PrintWriter(stw);
+		ex.printStackTrace(pw);
+		log.error(stw.toString());
+	}
+
+	protected static WebDriver getWebDriverInstance(ITestContext context) {
 		return (WebDriver) context.getAttribute(context.getCurrentXmlTest()
 				.getName());
 	}
 
 	@BeforeTest
-	public void beforeTest(ITestContext context) throws Exception {
+	protected void beforeTest(ITestContext context) throws Exception {
 		Browser browser = new Browser(
 				frameworkProperty.getProperty("browserName"),
 				frameworkProperty.getProperty("browserVersion"),
@@ -90,7 +90,7 @@ public class TestBase {
 	}
 
 	@AfterTest
-	public void afterTest(ITestContext context) {
+	protected void afterTest(ITestContext context) {
 		WebDriver webdriver = getWebDriverInstance(context);
 		log.info(Utilities.getCurrentThreadId() + "Closing the instance:"
 				+ webdriver.toString());
@@ -99,7 +99,7 @@ public class TestBase {
 	}
 
 	@AfterMethod
-	public void afterMethod(ITestResult result) throws IOException {
+	protected void afterMethod(ITestResult result) throws IOException {
 		WebDriver webdriver = getWebDriverInstance(result.getTestContext());
 		if (result.isSuccess()) {
 			return;

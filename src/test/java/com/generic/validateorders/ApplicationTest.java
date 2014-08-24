@@ -5,6 +5,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.generic.exceptions.WaitException;
 import com.generic.pages.ConfirmationPage;
 import com.generic.pages.HomePage;
 import com.generic.testbase.TestBase;
@@ -17,20 +18,19 @@ public class ApplicationTest extends TestBase {
 	private ConfirmationPage confirmationPage;
 
 	@BeforeClass
-	public void beforeClass(ITestContext context) throws InterruptedException {
+	public void beforeClass(ITestContext context) throws WaitException {
 		homePage = new HomePage(getWebDriverInstance(context));
 	}
 
 	@Test(dataProvider = "ReadExcel")
-	public void enterAndValidateUniversityData(String lastName, String firstName,
-			String address1, String address2, String city, String state,
-			String pincode, String underGradProgOfInterest,
+	public void enterAndValidateUniversityData(String lastName,
+			String firstName, String address1, String address2, String city,
+			String state, String pincode, String underGradProgOfInterest,
 			String underGradCertOfInterest, String gradProgOfInterest,
 			String gradCertOfInterest, String areaCode,
 			String firstThreeDigits, String lastFourDigits, String emailId,
 			String verifyEmail) throws Exception {
 		try {
-			
 			confirmationPage = homePage.enterFormDetails(lastName, firstName,
 					address1, address2, city, state, pincode,
 					underGradProgOfInterest, underGradCertOfInterest,

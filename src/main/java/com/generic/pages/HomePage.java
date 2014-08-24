@@ -1,18 +1,19 @@
 package com.generic.pages;
 
 import static com.generic.pages.locators.HomePageLocators.*;
-
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.generic.exceptions.WaitException;
 
 public class HomePage extends PageBase {
 
-	public HomePage(WebDriver driver) {
+	public HomePage(WebDriver driver) throws WaitException {
 		super(driver);
+		Assert.assertTrue(action.getVisibiltyOfElementLocatedBy(lastName));
 	}
-
+	
 	public HomePage enterLastName(String lastNameVal) throws TimeoutException,
 			WaitException {
 		action.enterText(VISIBILITY, lastName, lastNameVal);

@@ -1,9 +1,9 @@
 package com.generic.pages;
 
 import org.openqa.selenium.WebDriver;
-
 import com.generic.actions.BrowserActions;
 import com.generic.actions.Comparator;
+import com.generic.exceptions.WaitException;
 import com.generic.utilities.Utilities;
 
 public class PageBase {
@@ -17,7 +17,7 @@ public class PageBase {
 	protected Utilities util = new Utilities();
 	protected Comparator compare = new Comparator();
 
-	public PageBase(WebDriver driver) {
+	public PageBase(WebDriver driver) throws WaitException {
 		this.driver = driver;
 		this.action = new BrowserActions(driver);
 	}
@@ -26,5 +26,4 @@ public class PageBase {
 		action.navigateToURL(url);
 		return this;
 	}
-
 }

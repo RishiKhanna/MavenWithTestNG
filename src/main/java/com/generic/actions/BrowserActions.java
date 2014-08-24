@@ -91,7 +91,8 @@ public class BrowserActions {
 				+ " in text box with locator:" + element);
 	}
 
-	public void click(String syncKey, By element) throws TimeoutException, WaitException {
+	public void click(String syncKey, By element) throws TimeoutException,
+			WaitException {
 		wait.syncElementUsing(syncKey, driver, element).click();
 		log.info(Utilities.getCurrentThreadId()
 				+ "Clicked on element with locator:" + element);
@@ -113,13 +114,15 @@ public class BrowserActions {
 		log.info("Clicked on element with locator:" + element + " using JQuery");
 	}
 
-	public void submitForm(String syncKey, By element) throws TimeoutException, WaitException {
+	public void submitForm(String syncKey, By element) throws TimeoutException,
+			WaitException {
 		wait.syncElementUsing(syncKey, driver, element).submit();
 		log.info(Utilities.getCurrentThreadId()
 				+ "Clicked on form submit button:" + element);
 	}
 
-	public void switchToSecondaryWindow(String windowTitle) throws WaitException, InterruptedException {
+	public void switchToSecondaryWindow(String windowTitle)
+			throws WaitException, InterruptedException {
 		wait.waitForTimePeriod(10000);
 		log.info(Utilities.getCurrentThreadId()
 				+ "Secondary window title for switching: " + windowTitle);
@@ -142,7 +145,8 @@ public class BrowserActions {
 		}
 	}
 
-	public void selectOption(String syncKey, By parentLocator, String value) throws TimeoutException, WaitException {
+	public void selectOption(String syncKey, By parentLocator, String value)
+			throws TimeoutException, WaitException {
 		List<WebElement> element = wait.syncElementsUsing(syncKey, driver,
 				parentLocator);
 		log.info(Utilities.getCurrentThreadId()
@@ -163,7 +167,8 @@ public class BrowserActions {
 		}
 	}
 
-	public void selectFromDropDown(String syncKey, By element, String value) throws TimeoutException, WaitException {
+	public void selectFromDropDown(String syncKey, By element, String value)
+			throws TimeoutException, WaitException {
 		Select select = new Select(wait.syncElementUsing(syncKey, driver,
 				element));
 		select.selectByVisibleText(value);
@@ -171,7 +176,8 @@ public class BrowserActions {
 				+ " from drop-down with locator:" + element);
 	}
 
-	public String getText(String syncKey, By element) throws TimeoutException, WaitException {
+	public String getText(String syncKey, By element) throws TimeoutException,
+			WaitException {
 		String actual = wait.syncElementUsing(syncKey, driver, element)
 				.getText();
 		log.info(Utilities.getCurrentThreadId() + "Actual Value:" + actual);
@@ -184,14 +190,16 @@ public class BrowserActions {
 		return driver.getTitle();
 	}
 
-	public String getAttributeValue(String syncKey, By element, String attribute) throws TimeoutException, WaitException {
+	public String getAttributeValue(String syncKey, By element, String attribute)
+			throws TimeoutException, WaitException {
 		log.info(Utilities.getCurrentThreadId() + "Retrieving the attribute "
 				+ attribute + " of element " + element);
 		return wait.syncElementUsing(syncKey, driver, element).getAttribute(
 				attribute);
 	}
 
-	public List<String> getWebElementsTextInList(String syncKey, By locator) throws TimeoutException, WaitException {
+	public List<String> getWebElementsTextInList(String syncKey, By locator)
+			throws TimeoutException, WaitException {
 		log.info(Utilities.getCurrentThreadId()
 				+ "Coverting the locator into a List of String");
 		List<WebElement> weblElementList = wait.syncElementsUsing(syncKey,
@@ -203,5 +211,11 @@ public class BrowserActions {
 			list.add(weblElementList.get(i).getText());
 		}
 		return list;
+	}
+
+	public Boolean getVisibiltyOfElementLocatedBy(By locator)
+			throws WaitException {
+		return wait.checkForElementVisibility(driver,locator);
+		
 	}
 }
