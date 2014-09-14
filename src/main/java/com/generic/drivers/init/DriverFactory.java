@@ -1,4 +1,4 @@
-package com.generic.driverinit;
+package com.generic.drivers.init;
 
 public class DriverFactory {
 
@@ -10,6 +10,8 @@ public class DriverFactory {
 			return new RemoteDriver();
 		} else if (driverType.equalsIgnoreCase("local")) {
 			return new LocalDriver();
+		} else if (driverType.equalsIgnoreCase("mobile")) {
+			return new MobileDriver();
 		}
 		return null;
 	}

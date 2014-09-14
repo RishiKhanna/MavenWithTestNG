@@ -6,20 +6,23 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.generic.exceptions.WaitException;
-import com.generic.pages.ConfirmationPage;
-import com.generic.pages.HomePage;
-import com.generic.testbase.TestBase;
+import com.generic.page.base.WebPageBase;
+import com.generic.test.base.TestBase;
 import com.generic.utilities.Reporter;
 import com.generic.utilities.Utilities;
+import com.generic.web.pages.ConfirmationPage;
+import com.generic.web.pages.HomePage;
 
-public class ApplicationTest extends TestBase {
+public class WebAppTest extends TestBase {
 
 	private HomePage homePage;
 	private ConfirmationPage confirmationPage;
+	private WebPageBase pageBase;
+
 
 	@BeforeClass
 	public void beforeClass(ITestContext context) throws WaitException {
-		homePage = new HomePage(getWebDriverInstance(context));
+		pageBase = new WebPageBase(getWebDriverInstance(context));
 	}
 
 	@Test(dataProvider = "ReadExcel")
@@ -31,6 +34,9 @@ public class ApplicationTest extends TestBase {
 			String firstThreeDigits, String lastFourDigits, String emailId,
 			String verifyEmail) throws Exception {
 		try {
+			homePage = pageBase.navigateTo(applicationProperty
+					.getProperty("applicationURL"));
+			Thread.sleep(5000);
 			confirmationPage = homePage.enterFormDetails(lastName, firstName,
 					address1, address2, city, state, pincode,
 					underGradProgOfInterest, underGradCertOfInterest,
@@ -41,13 +47,13 @@ public class ApplicationTest extends TestBase {
 			Reporter.sendStatusToReport("UniversityForm", "134",
 					Utilities.getCurrentThreadId()
 							+ "Validate confirmation message", "Pass", "NA");
-		} catch (Exception excetion) {
-			logErrorMessage(excetion);
+		} catch (Exception exception) {
+			logErrorMessage(exception);
 			Reporter.sendStatusToReport("UniversityForm", "134",
 					Utilities.getCurrentThreadId()
 							+ "Validate confirmation message", "Fail",
-					excetion.getLocalizedMessage());
-			throw excetion;
+					exception.getLocalizedMessage());
+			throw exception;
 		}
 	}
 }

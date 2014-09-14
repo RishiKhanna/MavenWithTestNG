@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.generic.exceptions.WaitException;
-import com.generic.propertymgr.PropertyManager;
+import com.generic.property.mgr.PropertyManager;
 import com.generic.utilities.Logg;
 import com.generic.utilities.Utilities;
 import com.google.common.base.Function;

@@ -1,4 +1,4 @@
-package com.generic.driverinit;
+package com.generic.drivers.init;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;

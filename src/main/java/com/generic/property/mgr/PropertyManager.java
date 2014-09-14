@@ -1,4 +1,4 @@
-package com.generic.propertymgr;
+package com.generic.property.mgr;
 
 import java.io.FileInputStream;
 import java.io.IOException;

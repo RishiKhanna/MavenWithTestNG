@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 
-import com.generic.propertymgr.PropertyManager;
+import com.generic.property.mgr.PropertyManager;
 
 import jxl.Sheet;
 import jxl.Workbook;

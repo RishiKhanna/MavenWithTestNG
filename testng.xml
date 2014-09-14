@@ -1,20 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Customers" verbose="1" parallel="tests" thread-count="3">
-
-	<test name="validateUniversityFormData" preserve-order="true">
-		<classes>
-			<class name="com.generic.validateorders.ApplicationTest">
-				<methods>
-					<include name="enterAndValidateUniversityData" />
-				</methods>
-			</class>
-		</classes>
-	</test>
-
+<suite name="Customers" verbose="1" parallel="tests" thread-count="2">
 	<test name="validateUniversityFormData1" preserve-order="true">
 		<classes>
-			<class name="com.generic.validateorders.ApplicationTest">
+			<class name="com.generic.validateorders.WebAppTest">
 				<methods>
 					<include name="enterAndValidateUniversityData" />
 				</methods>
@@ -23,10 +12,11 @@
 	</test>
 
 	<test name="validateUniversityFormData2" preserve-order="true">
+		<parameter name="executionType" value="mobile"></parameter>
 		<classes>
-			<class name="com.generic.validateorders.ApplicationTest">
+			<class name="com.generic.validateorders.MobileAppTest">
 				<methods>
-					<include name="enterAndValidateUniversityData" />
+					<include name="mobileTest" />
 				</methods>
 			</class>
 		</classes>

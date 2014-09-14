@@ -7,7 +7,7 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
-import com.generic.propertymgr.PropertyManager;
+import com.generic.property.mgr.PropertyManager;
 
 public class Utilities {
 

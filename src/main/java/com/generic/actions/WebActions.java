@@ -17,22 +17,22 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.ITestContext;
 
 import com.generic.exceptions.WaitException;
-import com.generic.propertymgr.PropertyManager;
+import com.generic.property.mgr.PropertyManager;
 import com.generic.utilities.Logg;
 import com.generic.utilities.Utilities;
 import com.generic.waits.WebDriverWaits;
 
-public class BrowserActions {
+public class WebActions {
 
-	private WebDriver driver;
-	private final Comparator compare = new Comparator();
-	private final Logger log = Logg.createLogger();
-	private final WebDriverWaits wait = new WebDriverWaits();
+	protected WebDriver driver;
+	protected final Comparator compare = new Comparator();
+	protected final Logger log = Logg.createLogger();
+	protected final WebDriverWaits wait = new WebDriverWaits();
 	private static Cookie cookie;
 	private static final Properties applicationProperty = PropertyManager
 			.loadApplicationPropertyFile("application.properties");
 
-	public BrowserActions(WebDriver driver) {
+	public WebActions(WebDriver driver) {
 		this.driver = driver;
 	}
 

@@ -1,13 +1,15 @@
-package com.generic.pages;
+package com.generic.web.pages;
 
-import static com.generic.pages.locators.HomePageLocators.*;
+import static com.generic.web.pages.locators.HomePageLocators.*;
+
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.generic.exceptions.WaitException;
+import com.generic.page.base.WebPageBase;
 
-public class HomePage extends PageBase {
+public class HomePage extends WebPageBase {
 
 	public HomePage(WebDriver driver) throws WaitException {
 		super(driver);
@@ -128,7 +130,7 @@ public class HomePage extends PageBase {
 			String underGradCertOfInterest, String gradProgOfInterest,
 			String gradCertOfInterest, String areaCode,
 			String firstThreeDigits, String lastFourDigits, String emailId,
-			String verifyEmail) throws TimeoutException, WaitException {
+			String verifyEmail) throws TimeoutException, WaitException, InterruptedException {
 		enterLastName(lastName);
 		enterFirstName(firstName);
 		enterAddress1(address1);
@@ -136,6 +138,7 @@ public class HomePage extends PageBase {
 		enterCity(city);
 		enterState(state);
 		enterZip(pincode);
+		Thread.sleep(10000);
 		selectUnderGradProgOfInterest(underGradProgOfInterest);
 		selectUnderGradCertOfInterest(underGradCertOfInterest);
 		selectGradProgOfInterest(gradProgOfInterest);

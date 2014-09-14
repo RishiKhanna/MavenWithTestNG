@@ -1,4 +1,4 @@
-package com.generic.testbase;
+package com.generic.test.base;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,12 +18,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
-import com.generic.driverinit.Browser;
-import com.generic.driverinit.DriverFactory;
-import com.generic.driverinit.IDriver;
-import com.generic.pages.PageBase;
-import com.generic.propertymgr.PropertyManager;
+import com.generic.drivers.init.Browser;
+import com.generic.drivers.init.DriverFactory;
+import com.generic.drivers.init.IDriver;
+import com.generic.property.mgr.PropertyManager;
 import com.generic.utilities.DateAndTime;
 import com.generic.utilities.ExcelRead;
 import com.generic.utilities.Logg;
@@ -41,9 +42,9 @@ public class TestBase {
 	protected final static Utilities util = new Utilities();
 	protected static String[][] strorage = null;
 	private static final String dateAndTimeFormat = "MM-dd-yyyy_hh.mm.ss";
-	private final static Properties applicationProperty = PropertyManager
+	protected final static Properties applicationProperty = PropertyManager
 			.loadApplicationPropertyFile("application.properties");
-	
+
 	@DataProvider(name = "ReadExcel")
 	public String[][] readDataFromExcel(Method m) {
 		log.info(Utilities.getCurrentThreadId() + "Data Provider: Read Excel");
@@ -75,18 +76,17 @@ public class TestBase {
 	}
 
 	@BeforeTest
-	protected void beforeTest(ITestContext context) throws Exception {
+	@Parameters("executionType")
+	protected void beforeTest(@Optional("local") String executionType,
+			ITestContext context) throws Exception {
 		Browser browser = new Browser(
 				frameworkProperty.getProperty("browserName"),
 				frameworkProperty.getProperty("browserVersion"),
 				Platform.WINDOWS);
 		DriverFactory factory = new DriverFactory();
-		IDriver idriver = factory.getDriver(frameworkProperty
-				.getProperty("executionType"));
+		IDriver idriver = factory.getDriver(executionType);
 		WebDriver driver = idriver.getDriver(browser);
-		driver.manage().window().maximize();
 		context.setAttribute(context.getCurrentXmlTest().getName(), driver);
-		new PageBase(driver).navigateTo(applicationProperty.getProperty("applicationURL"));
 	}
 
 	@AfterTest

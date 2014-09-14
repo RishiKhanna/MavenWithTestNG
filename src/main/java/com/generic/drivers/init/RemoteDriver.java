@@ -1,4 +1,4 @@
-package com.generic.driverinit;
+package com.generic.drivers.init;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.generic.propertymgr.PropertyManager;
+import com.generic.property.mgr.PropertyManager;
 import com.generic.utilities.Logg;
 import com.generic.utilities.Utilities;
 
@@ -44,9 +44,8 @@ public class RemoteDriver implements IDriver {
 			driver = new RemoteWebDriver(new URL("http://" + hubAddress + ":"
 					+ hubPort + "/wd/hub"), capabilities);
 			log.info(Utilities.getCurrentThreadId()
-					+ "Returning the remote instance of:" + driver.toString());
+					+ "Returning the remote instance of:" + driver);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return driver;

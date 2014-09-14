@@ -1,14 +1,15 @@
-package com.generic.pages;
+package com.generic.web.pages;
 
-import static com.generic.pages.locators.ConfirmationPageLocators.*;
+import static com.generic.web.pages.locators.ConfirmationPageLocators.*;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.generic.exceptions.WaitException;
+import com.generic.page.base.WebPageBase;
 
-public class ConfirmationPage extends PageBase {
+public class ConfirmationPage extends WebPageBase {
 
 	public ConfirmationPage(WebDriver driver) throws WaitException {
 		super(driver);
