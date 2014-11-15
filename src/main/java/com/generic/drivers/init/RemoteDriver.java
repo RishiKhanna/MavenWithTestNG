@@ -15,39 +15,34 @@ import com.generic.utilities.Utilities;
 
 public class RemoteDriver implements IDriver {
 
-	private static final Logger log = Logg.createLogger();
-	private static final Properties frameworkProperty = PropertyManager
-			.loadFrameworkPropertyFile("framework.properties");
-	private static final String hubAddress = frameworkProperty
-			.getProperty("gridURL");
-	private static final String hubPort = frameworkProperty
-			.getProperty("gridPort");
+    private static final Logger LOGGER = Logg.createLogger();
+    private static final Properties FRAMEWORKPROPERTY = PropertyManager
+            .loadFrameworkPropertyFile("framework.properties");
+    private static final String HUBADDRESS = FRAMEWORKPROPERTY.getProperty("gridURL");
+    private static final String HUBPORT = FRAMEWORKPROPERTY.getProperty("gridPort");
 
-	public WebDriver getDriver(Browser browser) {
-		WebDriver driver = null;
-		DesiredCapabilities capabilities = null;
-		try {
-			if ("internet explorer".equals(browser.getName())) {
-				log.info(Utilities.getCurrentThreadId()
-						+ "**Remote Internet Explorer Browser**");
-				capabilities = Capabilities
-						.setInternetExplorerCapability(browser);
-			} else if ("firefox".equals(browser.getName())) {
-				log.info(Utilities.getCurrentThreadId()
-						+ "**Remote FireFox Browser**");
-				capabilities = Capabilities.setFirefoxCapability(browser);
-			} else if ("chrome".equals(browser.getName())) {
-				log.info(Utilities.getCurrentThreadId()
-						+ "**Remote Chrome Browser**");
-				capabilities = Capabilities.setChromeCapability(browser);
-			}
-			driver = new RemoteWebDriver(new URL("http://" + hubAddress + ":"
-					+ hubPort + "/wd/hub"), capabilities);
-			log.info(Utilities.getCurrentThreadId()
-					+ "Returning the remote instance of:" + driver);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return driver;
-	}
+    public WebDriver getDriver(Browser browser) {
+        WebDriver driver = null;
+        DesiredCapabilities capabilities = null;
+        try {
+            if ("internet explorer".equals(browser.getName())) {
+                LOGGER.info(Utilities.getCurrentThreadId() + "**Remote Internet Explorer Browser**");
+                capabilities = WebCapabilities.setInternetExplorerCapability(browser);
+            } else if ("firefox".equals(browser.getName())) {
+                LOGGER.info(Utilities.getCurrentThreadId() + "**Remote FireFox Browser**");
+                capabilities = WebCapabilities.setFirefoxCapability(browser);
+            } else if ("chrome".equals(browser.getName())) {
+                LOGGER.info(Utilities.getCurrentThreadId() + "**Remote Chrome Browser**");
+                capabilities = WebCapabilities.setChromeCapability(browser);
+            }
+            driver = new RemoteWebDriver(
+                    new URL("http://" + HUBADDRESS + ":" + HUBPORT + "/wd/hub"), capabilities);
+            LOGGER.info(Utilities.getCurrentThreadId() + "Returning the remote instance of:"
+                    + driver);
+        } catch (MalformedURLException me) {
+            LOGGER.info(
+                    "MalformedURLException in the getDriver() method of the RemoteDriver class", me);
+        }
+        return driver;
+    }
 }

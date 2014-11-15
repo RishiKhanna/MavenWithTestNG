@@ -11,30 +11,28 @@ import com.generic.page.base.MobilePageBase;
 
 public class FlipkartLoginPage extends MobilePageBase {
 
-	public FlipkartLoginPage(WebDriver driver) throws WaitException {
-		super(driver);
-		Assert.assertTrue(action.getVisibiltyOfElementLocatedBy(byUsername));
-	}
+    public FlipkartLoginPage(WebDriver driver) throws WaitException {
+        super(driver);
+        Assert.assertTrue(mobileActions.getVisibiltyOfElementLocatedBy(BYUSERNAME));
+    }
 
-	public FlipkartLoginPage enterUserName(String username) throws TimeoutException,
-			WaitException {
-		action.enterText(VISIBILITY, byUsername, username);
-		return this;
-	}
+    public FlipkartLoginPage enterUserName(String username) throws TimeoutException, WaitException {
+        mobileActions.enterText(VISIBILITY, BYUSERNAME, username);
+        return this;
+    }
 
-	public FlipkartLoginPage enterPassword(String password) throws TimeoutException,
-			WaitException {
-		action.enterText(VISIBILITY, byPassword, password);
-		return this;
-	}
+    public FlipkartLoginPage enterPassword(String password) throws TimeoutException, WaitException {
+        mobileActions.enterText(VISIBILITY, BYPASSWORD, password);
+        return this;
+    }
 
-	public FlipkartLoginPage clickLogin() throws TimeoutException, WaitException {
-		action.click(VISIBILITY, byLogin);
-		return this;
-	}
+    public FlipkartLoginPage clickLogin() throws TimeoutException, WaitException {
+        mobileActions.click(VISIBILITY, BYLOGIN);
+        return this;
+    }
 
-	public FlipkartHomePage tapMultiWidgetRoot() throws TimeoutException, WaitException {
-		action.tap(VISIBILITY,byMultiWidgetRoot);
-		return new FlipkartHomePage(driver);
-	}
+    public FlipkartHomePage tapMultiWidgetRoot() throws TimeoutException, WaitException {
+        mobileActions.tap(VISIBILITY, BYMULTIWIDGETROOT);
+        return new FlipkartHomePage(driver);
+    }
 }

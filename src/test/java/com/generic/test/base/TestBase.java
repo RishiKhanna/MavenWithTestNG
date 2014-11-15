@@ -26,18 +26,18 @@ import com.generic.drivers.init.DriverFactory;
 import com.generic.drivers.init.IDriver;
 import com.generic.property.mgr.PropertyManager;
 import com.generic.utilities.DateAndTime;
-import com.generic.utilities.ExcelRead;
 import com.generic.utilities.Logg;
+import com.generic.utilities.ReadExcel;
 import com.generic.utilities.Reporter;
 import com.generic.utilities.Utilities;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.Augmenter;
 
+
 public class TestBase {
 	private static final Properties frameworkProperty = PropertyManager
 			.loadFrameworkPropertyFile("framework.properties");
-	protected static Reporter report = new Reporter();
 	protected static final Logger log = Logg.createLogger();
 	protected final static Utilities util = new Utilities();
 	protected static String[][] strorage = null;
@@ -46,16 +46,16 @@ public class TestBase {
 			.loadApplicationPropertyFile("application.properties");
 
 	@DataProvider(name = "ReadExcel")
-	public String[][] readDataFromExcel(Method m) {
+	public String[][] readDataFromExcel(Method m) throws Exception {
 		log.info(Utilities.getCurrentThreadId() + "Data Provider: Read Excel");
 		log.info(Utilities.getCurrentThreadId()
 				+ "Data Provider: Running for Method: " + m.getName());
 		if ("enterAndValidateUniversityData".equals(m.getName())) {
-			strorage = ExcelRead.readTestData("Customer");
+			strorage = ReadExcel.readTestData("Customer");
 			log.info(Utilities.getCurrentThreadId()
 					+ "Data Provider: Retrieved data from the Customer Sheet of Test Data Excel");
 		} else if ("".equals(m.getName())) {
-			strorage = ExcelRead.readTestData("Sheet2");
+			strorage = ReadExcel.readTestData("Sheet2");
 		} else {
 			log.info(Utilities.getCurrentThreadId()
 					+ "NO MATCHING METHOD FOUND. PLEASE CHECK THE METHOD NAME IN THE DATA PROVIDER");
@@ -99,10 +99,10 @@ public class TestBase {
 	}
 
 	@AfterMethod
-	protected void afterMethod(ITestResult result) throws IOException {
+	protected File afterMethod(ITestResult result) throws IOException {
 		WebDriver webdriver = getWebDriverInstance(result.getTestContext());
 		if (result.isSuccess()) {
-			return;
+			 return ((TakesScreenshot) webdriver).getScreenshotAs(OutputType.FILE);
 		}
 		if ("remote".equals(frameworkProperty.getProperty("executionType")))
 			webdriver = new Augmenter().augment(webdriver);
@@ -115,5 +115,6 @@ public class TestBase {
 				+ dateAndTime + ".png";
 		FileUtils.copyFile(screenshot, new File("./screenshots/"
 				+ screenShotName));
+		 return screenshot;
 	}
 }

@@ -4,31 +4,43 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
+import com.generic.utilities.Logg;
+
 public class PropertyManager {
 
-	private static final Properties property = new Properties();;
-	private static final String applicationPropertiesPath = "/src/test/resources/com/test/properties/";
-	private static final String frameworkPropertiesPath = "/src/main/resources/com/framework/properties/";
+    private static final Properties PROPERTY = new Properties();
+    private static final String APPLICATIONPROPERTIESPATH = "/src/test/resources/com/test/properties/";
+    private static final String FRAMEWORKPROPERTIESPATH = "/src/main/resources/com/framework/properties/";
+    private static final Logger LOGGER = Logg.createLogger();
 
-	public static Properties loadFrameworkPropertyFile(String propertyToLoad) {
-		try {
-			property.load(new FileInputStream(System.getProperty("user.dir")
-					+ frameworkPropertiesPath + propertyToLoad));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		return property;
-	}
+    private PropertyManager() {
+    }
 
-	public static Properties loadApplicationPropertyFile(String propertyToLoad) {
-		try {
-			property.load(new FileInputStream(System.getProperty("user.dir")
-					+ applicationPropertiesPath + propertyToLoad));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
-		return property;
-	}
+    public static Properties loadFrameworkPropertyFile(String propertyToLoad) {
+        try {
+            PROPERTY.load(new FileInputStream(System.getProperty("user.dir")
+                    + FRAMEWORKPROPERTIESPATH + propertyToLoad));
+        } catch (IOException io) {
+            LOGGER.info(
+                    "IOException in the loadFrameworkPropertyFile() method of the PropertyManager class",
+                    io);
+            Runtime.getRuntime().halt(0);
+        }
+        return PROPERTY;
+    }
+
+    public static Properties loadApplicationPropertyFile(String propertyToLoad) {
+        try {
+            PROPERTY.load(new FileInputStream(System.getProperty("user.dir")
+                    + APPLICATIONPROPERTIESPATH + propertyToLoad));
+        } catch (IOException io) {
+            LOGGER.info(
+                    "IOException in the loadFrameworkPropertyFile() method of the PropertyManager class",
+                    io);
+            Runtime.getRuntime().halt(0);
+        }
+        return PROPERTY;
+    }
 }

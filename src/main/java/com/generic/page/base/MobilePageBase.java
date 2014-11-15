@@ -4,13 +4,13 @@ import org.openqa.selenium.WebDriver;
 import com.generic.actions.MobileActions;
 import com.generic.exceptions.WaitException;
 
-public class MobilePageBase extends PageBase{
+public class MobilePageBase extends PageBase {
 
-	protected WebDriver driver;
-	protected MobileActions action;
+    protected WebDriver driver;
+    protected MobileActions mobileActions;
 
-	public MobilePageBase(WebDriver driver) throws WaitException {
-		this.driver = driver;
-		this.action = new MobileActions(driver);
-	}
+    public MobilePageBase(WebDriver driver) throws WaitException {
+        this.driver = driver;
+        this.mobileActions = new MobileActions(driver);
+    }
 }
